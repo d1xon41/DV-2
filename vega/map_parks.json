@@ -1,0 +1,24 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 500,
+    "projection": {
+        "type": "mercator"
+    },
+    "data": {
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson"
+    },
+    "mark": {
+        "type": "geoshape",
+        "fill": "#c8e6c9",
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+    },
+    "encoding": {
+        "tooltip": {
+            "field": "properties.STATE_NAME",
+            "type": "nominal",
+            "title": "State"
+        }
+    }
+}
