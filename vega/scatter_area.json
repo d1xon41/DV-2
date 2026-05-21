@@ -1,0 +1,58 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 400,
+    "data": {
+        "url": "data/parks_by_jurisdiction.csv"
+    },
+    "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 150
+    },
+    "encoding": {
+        "x": {
+            "field": "jurisdiction_area_ha",
+            "type": "quantitative",
+            "title": "Total State Area (ha)",
+            "scale": {
+                "type": "log"
+            }
+        },
+        "y": {
+            "field": "protected_area_ha",
+            "type": "quantitative",
+            "title": "Protected Area (ha)",
+            "scale": {
+                "type": "log"
+            }
+        },
+        "color": {
+            "field": "percent_protected",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "greens"
+            },
+            "title": "% Protected"
+        },
+        "size": {
+            "field": "number_of_parks",
+            "type": "quantitative",
+            "title": "Number of Parks"
+        },
+        "tooltip": [
+            {
+                "field": "state",
+                "title": "State"
+            },
+            {
+                "field": "percent_protected",
+                "title": "% Protected"
+            },
+            {
+                "field": "number_of_parks",
+                "title": "Number of Parks"
+            }
+        ]
+    }
+}

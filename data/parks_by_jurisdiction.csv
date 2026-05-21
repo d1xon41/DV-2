@@ -1,0 +1,9 @@
+﻿state,state_name,jurisdiction_area_ha,number_of_parks,protected_area_ha,percent_protected,contribution_to_nrs
+ACT,Australian Capital Territory,235815,51,131902,55.93,0.08
+NSW,New South Wales,80115007,2657,8365056,10.44,4.82
+NT,Northern Territory,134779163,84,33208738,24.64,19.14
+QLD,Queensland,172974215,1230,16183153,9.36,9.33
+SA,South Australia,98432191,2085,29963518,30.44,17.27
+TAS,Tasmania,6840139,1721,2928055,42.81,1.69
+VIC,Victoria,22744373,4709,4023548,17.69,2.32
+WA,Western Australia,252701298,1888,78674219,31.13,45.34

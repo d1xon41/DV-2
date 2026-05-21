@@ -1,0 +1,66 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 500,
+    "projection": {
+        "type": "mercator"
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+                "format": {
+                    "type": "json",
+                    "property": "features"
+                }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.STATE_NAME",
+                    "from": {
+                        "data": {
+                            "url": "data/parks_by_jurisdiction.csv"
+                        },
+                        "key": "state_name",
+                        "fields": [
+                            "percent_protected",
+                            "number_of_parks"
+                        ]
+                    }
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "#ffffff",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "title": "% Land Protected",
+                    "scale": {
+                        "scheme": "greens"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "properties.STATE_NAME",
+                        "type": "nominal",
+                        "title": "State"
+                    },
+                    {
+                        "field": "percent_protected",
+                        "type": "quantitative",
+                        "title": "% Protected"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "type": "quantitative",
+                        "title": "Number of Parks"
+                    }
+                ]
+            }
+        }
+    ]
+}
