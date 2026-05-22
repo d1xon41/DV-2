@@ -1,0 +1,193 @@
+/* ── Variables ── */
+:root {
+  --green-dark:   #1a4a2e;
+  --green-mid:    #2d7a3a;
+  --green-light:  #e8f5e9;
+  --cream:        #faf8f4;
+  --charcoal:     #1c1c1c;
+  --grey:         #6b7280;
+  --border:       #dde5d8;
+  --white:        #ffffff;
+  --tag-color:    #2d7a3a;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── Hero ── */
+.hero {
+  background: var(--green-dark);
+  color: var(--white);
+  padding: 80px 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 320px;
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: #81c784;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: #b2dfb8;
+  max-width: 480px;
+  font-weight: 300;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  flex-shrink: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-right: 2px solid #2d7a3a;
+  padding-right: 24px;
+}
+
+.stat:last-child { border-right: none; padding-right: 0; }
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #a5d6a7;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #81c784;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* ── Sections ── */
+.section {
+  padding: 80px 60px;
+}
+
+.alt-bg {
+  background: var(--white);
+}
+
+.section-header {
+  max-width: 700px;
+  margin-bottom: 48px;
+}
+
+.section-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--tag-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--green-dark);
+}
+
+.section-desc {
+  color: var(--grey);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* ── Chart Grid ── */
+.chart-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.two-col { grid-template-columns: 1fr 1fr; }
+.one-col { grid-template-columns: 1fr; }
+
+/* ── Chart Cards ── */
+.chart-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.alt-bg .chart-card {
+  background: var(--cream);
+}
+
+.chart-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 6px;
+}
+
+.chart-desc {
+  font-size: 0.85rem;
+  color: var(--grey);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.chart-card.wide { max-width: 100%; }
+
+/* ── Vega containers ── */
+#map-parks, #map-choropleth,
+#bar-parks-count, #bar-percent-protected,
+#bar-iucn, #scatter-area {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--green-dark);
+  color: #81c784;
+  padding: 40px 60px;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.footer p + p {
+  margin-top: 4px;
+  color: #4caf50;
+}

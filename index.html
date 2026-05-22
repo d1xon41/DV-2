@@ -7,18 +7,113 @@
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <h1>Australia's National Parks & Biodiversity</h1>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">A DATA STORY</p>
+      <h1>Australia's National Parks<br>&amp; Biodiversity</h1>
+      <p class="hero-sub">Exploring how Australia protects its unique landscapes and the wildlife that depends on them.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">14,432</span>
+        <span class="stat-label">Protected Areas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">22.6%</span>
+        <span class="stat-label">Land Protected</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">173M</span>
+        <span class="stat-label">Hectares</span>
+      </div>
+    </div>
+  </header>
 
-  <div id="map-parks"></div>
-  <div id="map-choropleth"></div>
-  <div id="bar-parks-count"></div>
-  <div id="bar-percent-protected"></div>
-  <div id="bar-iucn"></div>
-  <div id="scatter-area"></div>
+  <!-- SECTION 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">01 — COVERAGE</span>
+      <h2>How much of each state is protected?</h2>
+      <p class="section-desc">The ACT leads with over 55% of its land under protection, while NSW protects just 10%. Western Australia contributes the most area by sheer size.</p>
+    </div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Protected Land by State</h3>
+        <p class="chart-desc">Darker green indicates a higher percentage of state land under formal protection.</p>
+        <div id="map-choropleth"></div>
+      </div>
+      <div class="chart-card">
+        <h3>% of State Land Protected</h3>
+        <p class="chart-desc">ACT's small size means a large proportion is managed as nature reserves and parks.</p>
+        <div id="bar-percent-protected"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">02 — QUANTITY</span>
+      <h2>Where are the most protected areas?</h2>
+      <p class="section-desc">Victoria leads in sheer number of protected areas, driven by its dense network of small reserves and conservation agreements.</p>
+    </div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Number of Protected Areas by State</h3>
+        <p class="chart-desc">Victoria has nearly 5,000 individual protected areas — more than any other state.</p>
+        <div id="bar-parks-count"></div>
+      </div>
+      <div class="chart-card">
+        <h3>State Area vs Protected Area</h3>
+        <p class="chart-desc">Larger states protect more land in absolute terms, but smaller states protect a greater proportion. Circle size shows number of parks.</p>
+        <div id="scatter-area"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">03 — CLASSIFICATION</span>
+      <h2>How are protected areas classified?</h2>
+      <p class="section-desc">The IUCN classification system categorises protected areas from strict nature reserves (Ia) to sustainable use areas (VI). Category VI areas dominate Australia's reserve system.</p>
+    </div>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>Area by IUCN Protection Category</h3>
+        <p class="chart-desc">Category VI (sustainable use) accounts for the vast majority of Australia's protected area by hectares, reflecting the inclusion of large Indigenous Protected Areas.</p>
+        <div id="bar-iucn"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">04 — THE FULL PICTURE</span>
+      <h2>Australia's protected areas at a glance</h2>
+      <p class="section-desc">The national reserve system spans every state and territory, from Antarctic territories to tropical rainforests.</p>
+    </div>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>National Reserve System</h3>
+        <p class="chart-desc">Australia's network of protected areas covers over 173 million hectares across all jurisdictions.</p>
+        <div id="map-parks"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Data sources: Collaborative Australian Protected Areas Database (CAPAD) 2024, Australian Government Department of Climate Change, Energy, the Environment and Water.</p>
+    <p>Created by Dixon Salim &middot; May 2026 &middot; FIT2179 Data Visualisation</p>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
