@@ -1,21 +1,40 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 500,
+    "width": 400,
     "height": 300,
     "data": {
         "url": "data/parks_by_iucn.csv"
     },
-    "mark": "bar",
+    "mark": {
+        "type": "circle"
+    },
     "encoding": {
         "x": {
             "field": "iucn_category",
             "type": "nominal",
-            "title": "IUCN Category"
+            "title": "IUCN Category",
+            "axis": {
+                "grid": false
+            }
         },
         "y": {
+            "field": "number_of_parks",
+            "type": "quantitative",
+            "title": "Number of Protected Areas",
+            "axis": {
+                "grid": false
+            }
+        },
+        "size": {
             "field": "area_ha",
             "type": "quantitative",
-            "title": "Total Area (ha)"
+            "title": "Area (ha)",
+            "scale": {
+                "range": [
+                    100,
+                    5000
+                ]
+            }
         },
         "color": {
             "field": "contribution_to_nrs",
@@ -32,11 +51,13 @@
             },
             {
                 "field": "number_of_parks",
-                "title": "Number of Parks"
+                "title": "Number of Parks",
+                "format": ","
             },
             {
                 "field": "area_ha",
-                "title": "Area (ha)"
+                "title": "Area (ha)",
+                "format": ","
             },
             {
                 "field": "contribution_to_nrs",

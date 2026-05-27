@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 500,
-    "height": 400,
+    "width": 400,
+    "height": 300,
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
@@ -17,6 +17,9 @@
             "title": "Total State Area (ha)",
             "scale": {
                 "type": "log"
+            },
+            "axis": {
+                "grid": false
             }
         },
         "y": {
@@ -25,6 +28,9 @@
             "title": "Protected Area (ha)",
             "scale": {
                 "type": "log"
+            },
+            "axis": {
+                "grid": false
             }
         },
         "color": {

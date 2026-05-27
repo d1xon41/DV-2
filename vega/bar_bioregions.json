@@ -1,48 +1,76 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 500,
+    "width": 400,
     "height": 400,
     "data": {
         "url": "data/parks_by_bioregion.csv"
     },
-    "mark": "bar",
-    "encoding": {
-        "y": {
-            "field": "bioregion",
-            "type": "nominal",
-            "title": "Bioregion",
-            "sort": "-x"
-        },
-        "x": {
-            "field": "area_ha",
-            "type": "quantitative",
-            "title": "Protected Area (ha)"
-        },
-        "color": {
-            "field": "percent_protected",
-            "type": "quantitative",
-            "scale": {
-                "scheme": "greens"
-            },
-            "title": "% Protected"
-        },
-        "tooltip": [
-            {
-                "field": "bioregion",
-                "title": "Bioregion"
-            },
-            {
-                "field": "area_ha",
-                "title": "Area (ha)"
-            },
-            {
-                "field": "percent_protected",
-                "title": "% Protected"
-            },
-            {
-                "field": "number_of_parks",
-                "title": "Number of Parks"
+    "layer": [
+        {
+            "mark": "rule",
+            "encoding": {
+                "y": {
+                    "field": "bioregion",
+                    "type": "nominal",
+                    "sort": "-x",
+                    "title": "Bioregion"
+                },
+                "x": {
+                    "field": "area_protected_ha",
+                    "type": "quantitative",
+                    "title": "Protected Area (ha)",
+                    "axis": {
+                        "grid": false
+                    }
+                },
+                "x2": {
+                    "datum": 0
+                },
+                "color": {
+                    "value": "#c8e6c9"
+                }
             }
-        ]
-    }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 100
+            },
+            "encoding": {
+                "y": {
+                    "field": "bioregion",
+                    "type": "nominal",
+                    "sort": "-x"
+                },
+                "x": {
+                    "field": "area_protected_ha",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    },
+                    "title": "% Protected"
+                },
+                "tooltip": [
+                    {
+                        "field": "bioregion",
+                        "title": "Bioregion"
+                    },
+                    {
+                        "field": "area_protected_ha",
+                        "title": "Area (ha)",
+                        "format": ","
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Protected"
+                    }
+                ]
+            }
+        }
+    ]
 }

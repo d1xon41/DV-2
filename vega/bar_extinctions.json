@@ -17,36 +17,31 @@
                 "group",
                 "extinctions"
             ]
-        },
-        {
-            "aggregate": [
-                {
-                    "op": "sum",
-                    "field": "extinctions",
-                    "as": "total"
-                }
-            ],
-            "groupby": [
-                "group"
-            ]
         }
     ],
-    "mark": "bar",
+    "mark": "area",
     "encoding": {
         "x": {
-            "field": "group",
-            "type": "nominal",
-            "title": "Animal Group",
-            "sort": "-y"
+            "field": "decade",
+            "type": "ordinal",
+            "title": "Decade",
+            "axis": {
+                "grid": false
+            }
         },
         "y": {
-            "field": "total",
+            "field": "extinctions",
             "type": "quantitative",
-            "title": "Total Extinctions Since 1800s"
+            "title": "Extinctions",
+            "stack": "zero",
+            "axis": {
+                "grid": false
+            }
         },
         "color": {
             "field": "group",
             "type": "nominal",
+            "title": "Animal Group",
             "scale": {
                 "domain": [
                     "mammals",
@@ -60,17 +55,20 @@
                     "#66bb6a",
                     "#a5d6a7"
                 ]
-            },
-            "legend": null
+            }
         },
         "tooltip": [
             {
-                "field": "group",
-                "title": "Animal Group"
+                "field": "decade",
+                "title": "Decade"
             },
             {
-                "field": "total",
-                "title": "Total Extinctions"
+                "field": "group",
+                "title": "Group"
+            },
+            {
+                "field": "extinctions",
+                "title": "Extinctions"
             }
         ]
     }

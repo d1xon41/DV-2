@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito+Sans:wght@300;400;600&family=Teko:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -55,6 +55,38 @@
       </div>
     </div>
   </section>
+
+<!-- SECTION 1B — NEW BUBBLE MAP -->
+<section class="section alt-bg">
+  <div class="section-header">
+    <span class="section-tag">01B — DISTRIBUTION</span>
+    <h2>Where are parks concentrated?</h2>
+    <p class="section-desc">Circle size shows the number of protected areas in each state. Colour shows what percentage of state land is formally protected.</p>
+  </div>
+  <div class="chart-grid one-col">
+    <div class="chart-card wide">
+      <h3>Proportional Symbol Map — Parks by State</h3>
+      <p class="chart-desc">Victoria and NSW have the most individual protected areas, while WA and NT protect the most land by area.</p>
+      <div id="map-bubbles"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1C — PARKS COUNT CHOROPLETH -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-tag">01C — COUNT</span>
+    <h2>Number of parks per state</h2>
+    <p class="section-desc">A second choropleth showing raw park counts rather than percentage — revealing a different spatial pattern.</p>
+  </div>
+  <div class="chart-grid one-col">
+    <div class="chart-card wide">
+      <h3>Number of Protected Areas by State</h3>
+      <p class="chart-desc">Victoria's dense network of small reserves makes it the state with the most individual protected areas.</p>
+      <div id="map-parks-count-choropleth"></div>
+    </div>
+  </div>
+</section>
 
   <!-- SECTION 2 -->
   <section class="section alt-bg">

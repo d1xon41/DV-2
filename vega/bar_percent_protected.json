@@ -1,40 +1,71 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 500,
+    "width": 400,
     "height": 300,
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
-    "mark": "bar",
-    "encoding": {
-        "y": {
-            "field": "state",
-            "type": "nominal",
-            "title": "State",
-            "sort": "-x"
-        },
-        "x": {
-            "field": "percent_protected",
-            "type": "quantitative",
-            "title": "% of State Land Protected"
-        },
-        "color": {
-            "field": "percent_protected",
-            "type": "quantitative",
-            "scale": {
-                "scheme": "greens"
-            },
-            "legend": null
-        },
-        "tooltip": [
-            {
-                "field": "state",
-                "title": "State"
-            },
-            {
-                "field": "percent_protected",
-                "title": "% Protected"
+    "layer": [
+        {
+            "mark": "rule",
+            "encoding": {
+                "y": {
+                    "field": "state",
+                    "type": "nominal",
+                    "sort": "-x",
+                    "title": "State"
+                },
+                "x": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "title": "% of State Land Protected",
+                    "axis": {
+                        "grid": false
+                    }
+                },
+                "x2": {
+                    "datum": 0
+                },
+                "color": {
+                    "value": "#a5d6a7"
+                }
             }
-        ]
-    }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 150
+            },
+            "encoding": {
+                "y": {
+                    "field": "state",
+                    "type": "nominal",
+                    "sort": "-x"
+                },
+                "x": {
+                    "field": "percent_protected",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    },
+                    "legend": null
+                },
+                "tooltip": [
+                    {
+                        "field": "state",
+                        "title": "State"
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Protected"
+                    }
+                ]
+            }
+        }
+    ]
 }

@@ -1,30 +1,46 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 400,
+    "width": 300,
     "height": 300,
     "data": {
         "url": "data/parks_by_governance.csv"
     },
-    "mark": "bar",
+    "mark": {
+        "type": "arc",
+        "innerRadius": 60,
+        "outerRadius": 130
+    },
     "encoding": {
-        "x": {
-            "field": "governance_type",
-            "type": "nominal",
-            "title": "Governance Type",
-            "sort": "-y"
-        },
-        "y": {
+        "theta": {
             "field": "area_ha",
-            "type": "quantitative",
-            "title": "Protected Area (ha)"
+            "type": "quantitative"
         },
-        "color": {
+        "radius": {
             "field": "contribution_to_nrs",
             "type": "quantitative",
             "scale": {
-                "scheme": "greens"
-            },
-            "title": "% Contribution to NRS"
+                "rangeMin": 60,
+                "rangeMax": 130
+            }
+        },
+        "color": {
+            "field": "governance_type",
+            "type": "nominal",
+            "title": "Governance Type",
+            "scale": {
+                "domain": [
+                    "Community",
+                    "Government",
+                    "Joint",
+                    "Private"
+                ],
+                "range": [
+                    "#1a4a2e",
+                    "#2d7a3a",
+                    "#66bb6a",
+                    "#a5d6a7"
+                ]
+            }
         },
         "tooltip": [
             {
@@ -32,17 +48,9 @@
                 "title": "Governance Type"
             },
             {
-                "field": "number_of_parks",
-                "title": "Number of Areas"
-            },
-            {
                 "field": "area_ha",
                 "title": "Area (ha)",
                 "format": ","
-            },
-            {
-                "field": "percent_of_australia",
-                "title": "% of Australia"
             },
             {
                 "field": "contribution_to_nrs",

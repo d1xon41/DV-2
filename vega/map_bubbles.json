@@ -1,0 +1,74 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 700,
+    "height": 500,
+    "projection": {
+        "type": "mercator"
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson"
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "#e8f5e9",
+                "stroke": "#ffffff",
+                "strokeWidth": 1
+            }
+        },
+        {
+            "data": {
+                "url": "data/state_centroids.csv"
+            },
+            "mark": {
+                "type": "circle",
+                "opacity": 0.75
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
+                },
+                "size": {
+                    "field": "number_of_parks",
+                    "type": "quantitative",
+                    "title": "Number of Parks",
+                    "scale": {
+                        "range": [
+                            200,
+                            4000
+                        ]
+                    }
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    },
+                    "title": "% Protected"
+                },
+                "tooltip": [
+                    {
+                        "field": "state_name",
+                        "title": "State"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "title": "Number of Parks",
+                        "format": ","
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Land Protected"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 700,
+    "height": 500,
+    "projection": {
+        "type": "mercator"
+    },
+    "data": {
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+        "format": {
+            "type": "json",
+            "property": "features"
+        }
+    },
+    "transform": [
+        {
+            "lookup": "properties.STATE_NAME",
+            "from": {
+                "data": {
+                    "url": "data/parks_by_jurisdiction.csv"
+                },
+                "key": "state_name",
+                "fields": [
+                    "number_of_parks",
+                    "state"
+                ]
+            }
+        }
+    ],
+    "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+    },
+    "encoding": {
+        "color": {
+            "field": "number_of_parks",
+            "type": "quantitative",
+            "title": "Number of Parks",
+            "scale": {
+                "scheme": "greens"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "properties.STATE_NAME",
+                "type": "nominal",
+                "title": "State"
+            },
+            {
+                "field": "number_of_parks",
+                "type": "quantitative",
+                "title": "Number of Parks"
+            }
+        ]
+    }
+}
