@@ -1,0 +1,74 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 400,
+    "height": 300,
+    "data": {
+        "url": "data/extinctions.csv"
+    },
+    "transform": [
+        {
+            "fold": [
+                "mammals",
+                "birds",
+                "reptiles",
+                "frogs"
+            ],
+            "as": [
+                "group",
+                "extinctions"
+            ]
+        }
+    ],
+    "mark": {
+        "type": "line",
+        "point": {
+            "filled": true,
+            "size": 60
+        }
+    },
+    "encoding": {
+        "x": {
+            "field": "decade",
+            "type": "ordinal",
+            "title": "Decade"
+        },
+        "y": {
+            "field": "extinctions",
+            "type": "quantitative",
+            "title": "Number of Extinctions"
+        },
+        "color": {
+            "field": "group",
+            "type": "nominal",
+            "title": "Animal Group",
+            "scale": {
+                "domain": [
+                    "mammals",
+                    "birds",
+                    "reptiles",
+                    "frogs"
+                ],
+                "range": [
+                    "#1a4a2e",
+                    "#2d7a3a",
+                    "#66bb6a",
+                    "#a5d6a7"
+                ]
+            }
+        },
+        "tooltip": [
+            {
+                "field": "decade",
+                "title": "Decade"
+            },
+            {
+                "field": "group",
+                "title": "Group"
+            },
+            {
+                "field": "extinctions",
+                "title": "Extinctions"
+            }
+        ]
+    }
+}

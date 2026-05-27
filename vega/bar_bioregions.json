@@ -1,0 +1,48 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 400,
+    "data": {
+        "url": "data/parks_by_bioregion.csv"
+    },
+    "mark": "bar",
+    "encoding": {
+        "y": {
+            "field": "bioregion",
+            "type": "nominal",
+            "title": "Bioregion",
+            "sort": "-x"
+        },
+        "x": {
+            "field": "area_ha",
+            "type": "quantitative",
+            "title": "Protected Area (ha)"
+        },
+        "color": {
+            "field": "percent_protected",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "greens"
+            },
+            "title": "% Protected"
+        },
+        "tooltip": [
+            {
+                "field": "bioregion",
+                "title": "Bioregion"
+            },
+            {
+                "field": "area_ha",
+                "title": "Area (ha)"
+            },
+            {
+                "field": "percent_protected",
+                "title": "% Protected"
+            },
+            {
+                "field": "number_of_parks",
+                "title": "Number of Parks"
+            }
+        ]
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 400,
+    "height": 300,
+    "data": {
+        "url": "data/extinctions.csv"
+    },
+    "transform": [
+        {
+            "fold": [
+                "mammals",
+                "birds",
+                "reptiles",
+                "frogs"
+            ],
+            "as": [
+                "group",
+                "extinctions"
+            ]
+        },
+        {
+            "aggregate": [
+                {
+                    "op": "sum",
+                    "field": "extinctions",
+                    "as": "total"
+                }
+            ],
+            "groupby": [
+                "group"
+            ]
+        }
+    ],
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "group",
+            "type": "nominal",
+            "title": "Animal Group",
+            "sort": "-y"
+        },
+        "y": {
+            "field": "total",
+            "type": "quantitative",
+            "title": "Total Extinctions Since 1800s"
+        },
+        "color": {
+            "field": "group",
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                    "mammals",
+                    "birds",
+                    "reptiles",
+                    "frogs"
+                ],
+                "range": [
+                    "#1a4a2e",
+                    "#2d7a3a",
+                    "#66bb6a",
+                    "#a5d6a7"
+                ]
+            },
+            "legend": null
+        },
+        "tooltip": [
+            {
+                "field": "group",
+                "title": "Animal Group"
+            },
+            {
+                "field": "total",
+                "title": "Total Extinctions"
+            }
+        ]
+    }
+}

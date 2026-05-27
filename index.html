@@ -82,13 +82,18 @@
     <div class="section-header">
       <span class="section-tag">03 — CLASSIFICATION</span>
       <h2>How are protected areas classified?</h2>
-      <p class="section-desc">The IUCN classification system categorises protected areas from strict nature reserves (Ia) to sustainable use areas (VI). Category VI areas dominate Australia's reserve system.</p>
+      <p class="section-desc">The IUCN system categorises protected areas from strict nature reserves (Ia) to sustainable use areas (VI). Category VI dominates Australia's reserve system by area.</p>
     </div>
-    <div class="chart-grid one-col">
-      <div class="chart-card wide">
+    <div class="chart-grid two-col">
+      <div class="chart-card">
         <h3>Area by IUCN Protection Category</h3>
-        <p class="chart-desc">Category VI (sustainable use) accounts for the vast majority of Australia's protected area by hectares, reflecting the inclusion of large Indigenous Protected Areas.</p>
+        <p class="chart-desc">Category VI accounts for the vast majority of Australia's protected area, reflecting large Indigenous Protected Areas.</p>
         <div id="bar-iucn"></div>
+      </div>
+      <div class="chart-card">
+        <h3>IUCN Category Breakdown by State</h3>
+        <p class="chart-desc">Each state has a distinct protection profile — Victoria favours strict reserves while WA and SA rely on Category VI areas.</p>
+        <div id="small-multiples-iucn"></div>
       </div>
     </div>
   </section>
@@ -96,7 +101,70 @@
   <!-- SECTION 4 -->
   <section class="section alt-bg">
     <div class="section-header">
-      <span class="section-tag">04 — THE FULL PICTURE</span>
+      <span class="section-tag">04 — GOVERNANCE</span>
+      <h2>Who manages Australia's protected areas?</h2>
+      <p class="section-desc">Protected areas are managed by a mix of government agencies, Indigenous communities, and private landholders under different governance frameworks.</p>
+    </div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Protected Areas by Governance Type</h3>
+        <p class="chart-desc">Government-managed areas dominate in number, but Indigenous and private governance cover significant land area.</p>
+        <div id="bar-governance"></div>
+      </div>
+      <div class="chart-card">
+        <h3>How Australia Uses Its Land</h3>
+        <p class="chart-desc">Nature conservation accounts for 22.6% of Australia's total land area, competing with grazing, forestry, and agriculture.</p>
+        <div id="donut-landuse"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">05 — BIOREGIONS</span>
+      <h2>Which bioregions are best protected?</h2>
+      <p class="section-desc">Australia's 89 IBRA bioregions vary enormously in protection levels. Desert bioregions in WA and NT dominate by total protected area.</p>
+    </div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Top 15 Bioregions by Protected Area</h3>
+        <p class="chart-desc">The Great Victoria Desert and Great Sandy Desert have the largest absolute protected areas in Australia.</p>
+        <div id="bar-bioregions"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Visitor Trends at Major Parks</h3>
+        <p class="chart-desc">COVID-19 caused a sharp drop in visitors across all major parks in 2020, with recovery varying significantly by location.</p>
+        <div id="line-visitors"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">06 — EXTINCTION CRISIS</span>
+      <h2>Australia's record of species loss</h2>
+      <p class="section-desc">Australia has one of the world's worst extinction records. Mammals have been hit hardest, with dozens of species lost since European settlement.</p>
+    </div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Species Extinctions by Decade</h3>
+        <p class="chart-desc">Extinction rates peaked in the early 1900s as land clearing and introduced predators spread across the continent.</p>
+        <div id="line-extinctions"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Total Extinctions by Group</h3>
+        <p class="chart-desc">Mammals account for the majority of Australian extinctions — a pattern unlike almost any other country on Earth.</p>
+        <div id="bar-extinctions"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">07 — THE FULL PICTURE</span>
       <h2>Australia's protected areas at a glance</h2>
       <p class="section-desc">The national reserve system spans every state and territory, from Antarctic territories to tropical rainforests.</p>
     </div>
@@ -111,8 +179,8 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>Data sources: Collaborative Australian Protected Areas Database (CAPAD) 2024, Australian Government Department of Climate Change, Energy, the Environment and Water.</p>
-    <p>Created by Dixon Salim &middot; May 2026 &middot; FIT2179 Data Visualisation</p>
+    <p>Data sources: Collaborative Australian Protected Areas Database (CAPAD) 2024, Australian Government DCCEEW &middot; State of Environment Report 2021, Australian Government.</p>
+    <p>Created by Dixon Salim &middot; May 2026 &middot; FIT2179 Data Visualisation, Monash University</p>
   </footer>
 
   <script src="js/main.js"></script>

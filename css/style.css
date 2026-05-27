@@ -191,3 +191,10 @@ body {
   margin-top: 4px;
   color: #4caf50;
 }
+
+#bar-bioregions, #line-visitors, #donut-landuse,
+#small-multiples-iucn, #bar-governance,
+#line-extinctions, #bar-extinctions {
+  width: 100%;
+  overflow: hidden;
+}

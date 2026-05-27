@@ -1,0 +1,53 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 400,
+    "height": 300,
+    "data": {
+        "url": "data/parks_by_governance.csv"
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "governance_type",
+            "type": "nominal",
+            "title": "Governance Type",
+            "sort": "-y"
+        },
+        "y": {
+            "field": "area_ha",
+            "type": "quantitative",
+            "title": "Protected Area (ha)"
+        },
+        "color": {
+            "field": "contribution_to_nrs",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "greens"
+            },
+            "title": "% Contribution to NRS"
+        },
+        "tooltip": [
+            {
+                "field": "governance_type",
+                "title": "Governance Type"
+            },
+            {
+                "field": "number_of_parks",
+                "title": "Number of Areas"
+            },
+            {
+                "field": "area_ha",
+                "title": "Area (ha)",
+                "format": ","
+            },
+            {
+                "field": "percent_of_australia",
+                "title": "% of Australia"
+            },
+            {
+                "field": "contribution_to_nrs",
+                "title": "% Contribution to NRS"
+            }
+        ]
+    }
+}

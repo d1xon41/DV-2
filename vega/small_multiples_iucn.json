@@ -1,0 +1,54 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "data/iucn_by_state.csv"
+    },
+    "facet": {
+        "field": "state",
+        "type": "nominal",
+        "title": "IUCN Category Breakdown by State",
+        "columns": 4
+    },
+    "spec": {
+        "width": 120,
+        "height": 100,
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "iucn_category",
+                "type": "nominal",
+                "title": null,
+                "axis": {
+                    "labelAngle": 0
+                }
+            },
+            "y": {
+                "field": "number_of_parks",
+                "type": "quantitative",
+                "title": "Parks"
+            },
+            "color": {
+                "field": "iucn_category",
+                "type": "nominal",
+                "scale": {
+                    "scheme": "greens"
+                },
+                "legend": null
+            },
+            "tooltip": [
+                {
+                    "field": "state",
+                    "title": "State"
+                },
+                {
+                    "field": "iucn_category",
+                    "title": "IUCN Category"
+                },
+                {
+                    "field": "number_of_parks",
+                    "title": "Number of Parks"
+                }
+            ]
+        }
+    }
+}

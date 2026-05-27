@@ -1,0 +1,48 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 350,
+    "height": 350,
+    "data": {
+        "url": "data/land_use.csv"
+    },
+    "mark": {
+        "type": "arc",
+        "innerRadius": 80,
+        "outerRadius": 150
+    },
+    "encoding": {
+        "theta": {
+            "field": "percentage",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "land_use",
+            "type": "nominal",
+            "title": "Land Use",
+            "scale": {
+                "range": [
+                    "#1a4a2e",
+                    "#4caf50",
+                    "#81c784",
+                    "#a5d6a7",
+                    "#c8e6c9",
+                    "#e8f5e9"
+                ]
+            }
+        },
+        "tooltip": [
+            {
+                "field": "land_use",
+                "title": "Land Use"
+            },
+            {
+                "field": "area_million_ha",
+                "title": "Area (million ha)"
+            },
+            {
+                "field": "percentage",
+                "title": "%"
+            }
+        ]
+    }
+}

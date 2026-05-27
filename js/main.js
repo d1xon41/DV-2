@@ -1,6 +1,15 @@
-vegaEmbed('#map-parks', 'vega/map_parks.json', { actions: false });
-vegaEmbed('#map-choropleth', 'vega/map_choropleth.json', { actions: false });
-vegaEmbed('#bar-parks-count', 'vega/map_parks_count.json', { actions: false });
-vegaEmbed('#bar-percent-protected', 'vega/bar_percent_protected.json', { actions: false });
-vegaEmbed('#bar-iucn', 'vega/bar_iucn.json', { actions: false });
-vegaEmbed('#scatter-area', 'vega/scatter_area.json', { actions: false });
+const opt = { actions: false };
+
+vegaEmbed('#map-parks',             'vega/map_parks.json',              opt);
+vegaEmbed('#map-choropleth',        'vega/map_choropleth.json',         opt);
+vegaEmbed('#bar-parks-count',       'vega/map_parks_count.json',        opt);
+vegaEmbed('#bar-percent-protected', 'vega/bar_percent_protected.json',  opt);
+vegaEmbed('#bar-iucn',              'vega/bar_iucn.json',               opt);
+vegaEmbed('#scatter-area',          'vega/scatter_area.json',           opt);
+vegaEmbed('#bar-bioregions',        'vega/bar_bioregions.json',         opt);
+vegaEmbed('#line-visitors',         'vega/line_visitors.json',          opt);
+vegaEmbed('#donut-landuse',         'vega/donut_landuse.json',          opt);
+vegaEmbed('#small-multiples-iucn',  'vega/small_multiples_iucn.json',   opt);
+vegaEmbed('#bar-governance',        'vega/bar_governance.json',         opt);
+vegaEmbed('#line-extinctions',      'vega/line_extinctions.json',       opt);
+vegaEmbed('#bar-extinctions',       'vega/bar_extinctions.json',        opt);
