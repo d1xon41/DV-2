@@ -1,0 +1,183 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Growth of Protected Areas by State (2000-2020)",
+    "width": 700,
+    "height": 480,
+    "params": [
+        {
+            "name": "year_selection",
+            "value": 2020,
+            "bind": {
+                "input": "range",
+                "min": 2000,
+                "max": 2020,
+                "step": 5,
+                "name": "Year: "
+            }
+        },
+        {
+            "name": "zoom_level",
+            "value": 800,
+            "bind": {
+                "input": "range",
+                "min": 400,
+                "max": 2500,
+                "step": 50,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                133,
+                -27
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        133,
+                        -27
+                    ],
+                    [
+                        151,
+                        -33
+                    ],
+                    [
+                        144,
+                        -37
+                    ],
+                    [
+                        115,
+                        -31
+                    ],
+                    [
+                        153,
+                        -27
+                    ],
+                    [
+                        147,
+                        -42
+                    ]
+                ],
+                "labels": [
+                    "All Australia",
+                    "Sydney / NSW",
+                    "Melbourne / VIC",
+                    "Perth / WA",
+                    "Brisbane / QLD",
+                    "Hobart / TAS"
+                ],
+                "name": "Map Centre: "
+            }
+        }
+    ],
+    "projection": {
+        "type": "mercator",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+                "format": {
+                    "type": "json",
+                    "property": "features"
+                }
+            },
+            "transform": [
+                {
+                    "calculate": "'No data available for ' + datum.properties.STATE_NAME",
+                    "as": "note"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "fill": "#ddd",
+                "stroke": "#ffffff",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "tooltip": {
+                    "field": "note",
+                    "type": "nominal"
+                }
+            }
+        },
+        {
+            "data": {
+                "url": "data/protection_growth.csv"
+            },
+            "transform": [
+                {
+                    "lookup": "state_name",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+                            "format": {
+                                "type": "json",
+                                "property": "features"
+                            }
+                        },
+                        "key": "properties.STATE_NAME"
+                    },
+                    "as": "geo"
+                },
+                {
+                    "filter": "datum.year == year_selection"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "#ffffff",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "shape": {
+                    "field": "geo",
+                    "type": "geojson"
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "title": "% Land Protected",
+                    "scale": {
+                        "domain": [
+                            5,
+                            60
+                        ],
+                        "scheme": "greens"
+                    },
+                    "legend": {
+                        "format": ".1f"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "state_name",
+                        "title": "State"
+                    },
+                    {
+                        "field": "year",
+                        "title": "Year"
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Protected",
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "title": "Number of Parks",
+                        "format": ","
+                    }
+                ]
+            }
+        }
+    ]
+}
