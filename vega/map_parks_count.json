@@ -4,18 +4,6 @@
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
-    "params": [
-        {
-            "name": "hover_parks_count",
-            "select": {
-                "type": "point",
-                "on": "mouseover",
-                "fields": [
-                    "state"
-                ]
-            }
-        }
-    ],
     "layer": [
         {
             "mark": "rule",
@@ -67,10 +55,6 @@
                     "legend": null
                 },
                 "size": {
-                    "condition": {
-                        "param": "hover_parks_count",
-                        "value": 250
-                    },
                     "value": 120
                 },
                 "tooltip": [

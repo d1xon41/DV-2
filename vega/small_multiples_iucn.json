@@ -2,18 +2,6 @@
     "data": {
         "url": "data/iucn_by_state.csv"
     },
-    "params": [
-        {
-            "name": "hover_multiples_iucn",
-            "select": {
-                "type": "point",
-                "on": "mouseover",
-                "fields": [
-                    "iucn_category"
-                ]
-            }
-        }
-    ],
     "facet": {
         "field": "state",
         "type": "nominal",
@@ -23,6 +11,18 @@
     "spec": {
         "width": 120,
         "height": 100,
+        "params": [
+            {
+                "name": "hover_multiples_iucn",
+                "select": {
+                    "type": "point",
+                    "on": "mouseover",
+                    "fields": [
+                        "iucn_category"
+                    ]
+                }
+            }
+        ],
         "mark": {
             "type": "bar",
             "cursor": "pointer"

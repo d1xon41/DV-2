@@ -4,18 +4,6 @@
     "data": {
         "url": "data/parks_by_bioregion.csv"
     },
-    "params": [
-        {
-            "name": "hover_bioregions",
-            "select": {
-                "type": "point",
-                "on": "mouseover",
-                "fields": [
-                    "bioregion"
-                ]
-            }
-        }
-    ],
     "layer": [
         {
             "mark": "rule",
@@ -67,10 +55,6 @@
                     "title": "% Protected"
                 },
                 "size": {
-                    "condition": {
-                        "param": "hover_bioregions",
-                        "value": 200
-                    },
                     "value": 100
                 },
                 "tooltip": [
