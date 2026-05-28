@@ -18,18 +18,25 @@
             "encoding": {
                 "x": {
                     "field": "year",
-                    "type": "ordinal",
+                    "type": "quantitative",
                     "title": "Year",
                     "scale": {
                         "domain": {
                             "param": "year_brush"
                         }
+                    },
+                    "axis": {
+                        "format": "d",
+                        "grid": false
                     }
                 },
                 "y": {
                     "field": "visitors",
                     "type": "quantitative",
-                    "title": "Annual Visitors"
+                    "title": "Annual Visitors",
+                    "axis": {
+                        "grid": false
+                    }
                 },
                 "color": {
                     "field": "park",
@@ -79,8 +86,11 @@
             "encoding": {
                 "x": {
                     "field": "year",
-                    "type": "ordinal",
-                    "title": ""
+                    "type": "quantitative",
+                    "title": "",
+                    "axis": {
+                        "format": "d"
+                    }
                 },
                 "y": {
                     "field": "visitors",

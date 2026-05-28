@@ -48,7 +48,7 @@
         },
         "tooltip": [
             {
-                "field": "state",
+                "field": "state_name",
                 "title": "State"
             },
             {
@@ -57,7 +57,18 @@
             },
             {
                 "field": "number_of_parks",
-                "title": "Number of Parks"
+                "title": "Number of Parks",
+                "format": ","
+            },
+            {
+                "field": "protected_area_ha",
+                "title": "Protected Area (ha)",
+                "format": ","
+            },
+            {
+                "field": "jurisdiction_area_ha",
+                "title": "Total Area (ha)",
+                "format": ","
             }
         ]
     }
