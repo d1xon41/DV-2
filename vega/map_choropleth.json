@@ -1,18 +1,74 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 700,
-    "height": 500,
-    "projection": {
-        "type": "mercator"
-    },
-    "data": {
-        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
-        "format": {
-            "type": "json",
-            "property": "features"
-        }
-    },
+    "height": 480,
     "params": [
+        {
+            "name": "zoom_level",
+            "value": 800,
+            "bind": {
+                "input": "range",
+                "min": 400,
+                "max": 2500,
+                "step": 50,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                133,
+                -27
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        133,
+                        -27
+                    ],
+                    [
+                        151,
+                        -33
+                    ],
+                    [
+                        144,
+                        -37
+                    ],
+                    [
+                        115,
+                        -31
+                    ],
+                    [
+                        153,
+                        -27
+                    ],
+                    [
+                        147,
+                        -42
+                    ],
+                    [
+                        138,
+                        -34
+                    ],
+                    [
+                        130,
+                        -19
+                    ]
+                ],
+                "labels": [
+                    "All Australia",
+                    "Sydney / NSW",
+                    "Melbourne / VIC",
+                    "Perth / WA",
+                    "Brisbane / QLD",
+                    "Hobart / TAS",
+                    "Adelaide / SA",
+                    "Darwin / NT"
+                ],
+                "name": "Map Centre: "
+            }
+        },
         {
             "name": "state_highlight",
             "select": {
@@ -23,70 +79,99 @@
             }
         }
     ],
-    "transform": [
+    "projection": {
+        "type": "mercator",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
+    },
+    "layer": [
         {
-            "lookup": "properties.STATE_NAME",
-            "from": {
-                "data": {
-                    "url": "data/parks_by_jurisdiction.csv"
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+                "format": {
+                    "type": "json",
+                    "property": "features"
+                }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.STATE_NAME",
+                    "from": {
+                        "data": {
+                            "url": "data/parks_by_jurisdiction.csv"
+                        },
+                        "key": "state_name",
+                        "fields": [
+                            "percent_protected",
+                            "number_of_parks",
+                            "protected_area_ha",
+                            "jurisdiction_area_ha"
+                        ]
+                    }
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "#ffffff",
+                "strokeWidth": 1,
+                "cursor": "pointer"
+            },
+            "encoding": {
+                "color": {
+                    "condition": {
+                        "param": "state_highlight",
+                        "field": "percent_protected",
+                        "type": "quantitative",
+                        "scale": {
+                            "scheme": "greens"
+                        },
+                        "title": "% Land Protected"
+                    },
+                    "value": "#e0e0e0"
                 },
-                "key": "state_name",
-                "fields": [
-                    "percent_protected",
-                    "number_of_parks",
-                    "protected_area_ha"
+                "opacity": {
+                    "condition": {
+                        "param": "state_highlight",
+                        "value": 1
+                    },
+                    "value": 0.4
+                },
+                "tooltip": [
+                    {
+                        "field": "properties.STATE_NAME",
+                        "type": "nominal",
+                        "title": "State"
+                    },
+                    {
+                        "field": "percent_protected",
+                        "type": "quantitative",
+                        "title": "% Land Protected",
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "type": "quantitative",
+                        "title": "Number of Parks",
+                        "format": ","
+                    },
+                    {
+                        "field": "protected_area_ha",
+                        "type": "quantitative",
+                        "title": "Protected Area (ha)",
+                        "format": ","
+                    },
+                    {
+                        "field": "jurisdiction_area_ha",
+                        "type": "quantitative",
+                        "title": "Total State Area (ha)",
+                        "format": ","
+                    }
                 ]
             }
         }
-    ],
-    "mark": {
-        "type": "geoshape",
-        "stroke": "#ffffff",
-        "strokeWidth": 1,
-        "cursor": "pointer"
-    },
-    "encoding": {
-        "color": {
-            "condition": {
-                "param": "state_highlight",
-                "field": "percent_protected",
-                "type": "quantitative",
-                "scale": {
-                    "scheme": "greens"
-                },
-                "title": "% Land Protected"
-            },
-            "value": "#e0e0e0"
-        },
-        "opacity": {
-            "condition": {
-                "param": "state_highlight",
-                "value": 1
-            },
-            "value": 0.4
-        },
-        "tooltip": [
-            {
-                "field": "properties.STATE_NAME",
-                "type": "nominal",
-                "title": "State"
-            },
-            {
-                "field": "percent_protected",
-                "type": "quantitative",
-                "title": "% Protected"
-            },
-            {
-                "field": "number_of_parks",
-                "type": "quantitative",
-                "title": "Number of Parks"
-            },
-            {
-                "field": "protected_area_ha",
-                "type": "quantitative",
-                "title": "Protected Area (ha)",
-                "format": ","
-            }
-        ]
-    }
+    ]
 }
