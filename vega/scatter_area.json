@@ -5,10 +5,19 @@
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
+    "params": [
+        {
+            "name": "brush",
+            "select": {
+                "type": "interval"
+            }
+        }
+    ],
     "mark": {
         "type": "point",
         "filled": true,
-        "size": 150
+        "size": 150,
+        "cursor": "crosshair"
     },
     "encoding": {
         "x": {
@@ -34,26 +43,38 @@
             }
         },
         "color": {
-            "field": "percent_protected",
-            "type": "quantitative",
-            "scale": {
-                "scheme": "greens"
+            "condition": {
+                "param": "brush",
+                "field": "percent_protected",
+                "type": "quantitative",
+                "scale": {
+                    "scheme": "greens"
+                },
+                "title": "% Protected"
             },
-            "title": "% Protected"
+            "value": "#e0e0e0"
         },
         "size": {
             "field": "number_of_parks",
             "type": "quantitative",
             "title": "Number of Parks"
         },
+        "opacity": {
+            "condition": {
+                "param": "brush",
+                "value": 1
+            },
+            "value": 0.2
+        },
         "tooltip": [
             {
-                "field": "state_name",
+                "field": "state",
                 "title": "State"
             },
             {
                 "field": "percent_protected",
-                "title": "% Protected"
+                "title": "% Protected",
+                "format": ".2f"
             },
             {
                 "field": "number_of_parks",
@@ -64,12 +85,13 @@
                 "field": "protected_area_ha",
                 "title": "Protected Area (ha)",
                 "format": ","
-            },
-            {
-                "field": "jurisdiction_area_ha",
-                "title": "Total Area (ha)",
-                "format": ","
             }
         ]
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
     }
 }

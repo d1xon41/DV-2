@@ -1,9 +1,92 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 700,
-    "height": 500,
+    "height": 480,
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 800,
+            "bind": {
+                "input": "range",
+                "min": 400,
+                "max": 2500,
+                "step": 50,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                133,
+                -27
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        133,
+                        -27
+                    ],
+                    [
+                        151,
+                        -33
+                    ],
+                    [
+                        144,
+                        -37
+                    ],
+                    [
+                        115,
+                        -31
+                    ],
+                    [
+                        153,
+                        -27
+                    ],
+                    [
+                        147,
+                        -42
+                    ],
+                    [
+                        138,
+                        -34
+                    ],
+                    [
+                        130,
+                        -19
+                    ]
+                ],
+                "labels": [
+                    "All Australia",
+                    "Sydney / NSW",
+                    "Melbourne / VIC",
+                    "Perth / WA",
+                    "Brisbane / QLD",
+                    "Hobart / TAS",
+                    "Adelaide / SA",
+                    "Darwin / NT"
+                ],
+                "name": "Map Centre: "
+            }
+        },
+        {
+            "name": "state_select",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "properties.STATE_NAME"
+                ]
+            }
+        }
+    ],
     "projection": {
-        "type": "mercator"
+        "type": "mercator",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
     },
     "data": {
         "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
@@ -22,7 +105,8 @@
                 "key": "state_name",
                 "fields": [
                     "number_of_parks",
-                    "state"
+                    "state",
+                    "percent_protected"
                 ]
             }
         }
@@ -30,16 +114,28 @@
     "mark": {
         "type": "geoshape",
         "stroke": "#ffffff",
-        "strokeWidth": 1
+        "strokeWidth": 1,
+        "cursor": "pointer"
     },
     "encoding": {
         "color": {
-            "field": "number_of_parks",
-            "type": "quantitative",
-            "title": "Number of Parks",
-            "scale": {
-                "scheme": "greens"
-            }
+            "condition": {
+                "param": "state_select",
+                "field": "number_of_parks",
+                "type": "quantitative",
+                "scale": {
+                    "scheme": "greens"
+                },
+                "title": "Number of Parks"
+            },
+            "value": "#e0e0e0"
+        },
+        "opacity": {
+            "condition": {
+                "param": "state_select",
+                "value": 1
+            },
+            "value": 0.4
         },
         "tooltip": [
             {
@@ -50,8 +146,21 @@
             {
                 "field": "number_of_parks",
                 "type": "quantitative",
-                "title": "Number of Parks"
+                "title": "Number of Parks",
+                "format": ","
+            },
+            {
+                "field": "percent_protected",
+                "type": "quantitative",
+                "title": "% Protected",
+                "format": ".2f"
             }
         ]
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
     }
 }

@@ -5,6 +5,18 @@
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
+    "params": [
+        {
+            "name": "hover",
+            "select": {
+                "type": "point",
+                "on": "mouseover",
+                "fields": [
+                    "state"
+                ]
+            }
+        }
+    ],
     "layer": [
         {
             "mark": "rule",
@@ -55,6 +67,13 @@
                     },
                     "legend": null
                 },
+                "size": {
+                    "condition": {
+                        "param": "hover",
+                        "value": 250
+                    },
+                    "value": 120
+                },
                 "tooltip": [
                     {
                         "field": "state",
@@ -64,9 +83,20 @@
                         "field": "number_of_parks",
                         "title": "Number of Parks",
                         "format": ","
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Protected",
+                        "format": ".2f"
                     }
                 ]
             }
         }
-    ]
+    ],
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
+    }
 }

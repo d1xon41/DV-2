@@ -1,14 +1,26 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 300,
+    "width": 400,
     "height": 300,
     "data": {
         "url": "data/parks_by_governance.csv"
     },
+    "params": [
+        {
+            "name": "gov_select",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "governance_type"
+                ]
+            }
+        }
+    ],
     "mark": {
         "type": "arc",
         "innerRadius": 60,
-        "outerRadius": 130
+        "outerRadius": 130,
+        "cursor": "pointer"
     },
     "encoding": {
         "theta": {
@@ -42,6 +54,13 @@
                 ]
             }
         },
+        "opacity": {
+            "condition": {
+                "param": "gov_select",
+                "value": 1
+            },
+            "value": 0.3
+        },
         "tooltip": [
             {
                 "field": "governance_type",
@@ -53,9 +72,21 @@
                 "format": ","
             },
             {
+                "field": "number_of_parks",
+                "title": "Number of Areas",
+                "format": ","
+            },
+            {
                 "field": "contribution_to_nrs",
-                "title": "% Contribution to NRS"
+                "title": "% Contribution to NRS",
+                "format": ".2f"
             }
         ]
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
     }
 }

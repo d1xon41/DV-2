@@ -1,48 +1,107 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 350,
-    "height": 350,
+    "width": 400,
+    "height": 400,
     "data": {
-        "url": "data/land_use.csv"
+        "url": "data/parks_by_bioregion.csv"
     },
-    "mark": {
-        "type": "arc",
-        "innerRadius": 80,
-        "outerRadius": 150
-    },
-    "encoding": {
-        "theta": {
-            "field": "percentage",
-            "type": "quantitative"
-        },
-        "color": {
-            "field": "land_use",
-            "type": "nominal",
-            "title": "Land Use",
-            "scale": {
-                "range": [
-                    "#1a4a2e",
-                    "#4caf50",
-                    "#81c784",
-                    "#a5d6a7",
-                    "#c8e6c9",
-                    "#e8f5e9"
+    "params": [
+        {
+            "name": "hover",
+            "select": {
+                "type": "point",
+                "on": "mouseover",
+                "fields": [
+                    "bioregion"
                 ]
             }
-        },
-        "tooltip": [
-            {
-                "field": "land_use",
-                "title": "Land Use"
-            },
-            {
-                "field": "area_million_ha",
-                "title": "Area (million ha)"
-            },
-            {
-                "field": "percentage",
-                "title": "%"
+        }
+    ],
+    "layer": [
+        {
+            "mark": "rule",
+            "encoding": {
+                "y": {
+                    "field": "bioregion",
+                    "type": "nominal",
+                    "sort": "-x",
+                    "title": "Bioregion"
+                },
+                "x": {
+                    "field": "area_protected_ha",
+                    "type": "quantitative",
+                    "title": "Protected Area (ha)",
+                    "axis": {
+                        "grid": false
+                    }
+                },
+                "x2": {
+                    "datum": 0
+                },
+                "color": {
+                    "value": "#c8e6c9"
+                }
             }
-        ]
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 100
+            },
+            "encoding": {
+                "y": {
+                    "field": "bioregion",
+                    "type": "nominal",
+                    "sort": "-x"
+                },
+                "x": {
+                    "field": "area_protected_ha",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    },
+                    "title": "% Protected"
+                },
+                "size": {
+                    "condition": {
+                        "param": "hover",
+                        "value": 200
+                    },
+                    "value": 100
+                },
+                "tooltip": [
+                    {
+                        "field": "bioregion",
+                        "title": "Bioregion"
+                    },
+                    {
+                        "field": "area_protected_ha",
+                        "title": "Protected Area (ha)",
+                        "format": ","
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Protected",
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "ibra_area_ha",
+                        "title": "Total Bioregion Area (ha)",
+                        "format": ","
+                    }
+                ]
+            }
+        }
+    ],
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
     }
 }

@@ -17,26 +17,41 @@
                 "group",
                 "extinctions"
             ]
+        },
+        {
+            "aggregate": [
+                {
+                    "op": "sum",
+                    "field": "extinctions",
+                    "as": "total"
+                }
+            ],
+            "groupby": [
+                "group"
+            ]
         }
     ],
-    "mark": "area",
+    "params": [
+        {
+            "name": "group_select",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "group"
+                ]
+            }
+        }
+    ],
+    "mark": {
+        "type": "arc",
+        "innerRadius": 60,
+        "outerRadius": 140,
+        "cursor": "pointer"
+    },
     "encoding": {
-        "x": {
-            "field": "decade",
-            "type": "ordinal",
-            "title": "Decade",
-            "axis": {
-                "grid": false
-            }
-        },
-        "y": {
-            "field": "extinctions",
-            "type": "quantitative",
-            "title": "Extinctions",
-            "stack": "zero",
-            "axis": {
-                "grid": false
-            }
+        "theta": {
+            "field": "total",
+            "type": "quantitative"
         },
         "color": {
             "field": "group",
@@ -57,19 +72,28 @@
                 ]
             }
         },
+        "opacity": {
+            "condition": {
+                "param": "group_select",
+                "value": 1
+            },
+            "value": 0.3
+        },
         "tooltip": [
             {
-                "field": "decade",
-                "title": "Decade"
-            },
-            {
                 "field": "group",
-                "title": "Group"
+                "title": "Animal Group"
             },
             {
-                "field": "extinctions",
-                "title": "Extinctions"
+                "field": "total",
+                "title": "Total Extinctions Since 1800s"
             }
         ]
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
     }
 }

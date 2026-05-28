@@ -3,6 +3,18 @@
     "data": {
         "url": "data/iucn_by_state.csv"
     },
+    "params": [
+        {
+            "name": "hover",
+            "select": {
+                "type": "point",
+                "on": "mouseover",
+                "fields": [
+                    "iucn_category"
+                ]
+            }
+        }
+    ],
     "facet": {
         "field": "state",
         "type": "nominal",
@@ -12,7 +24,10 @@
     "spec": {
         "width": 120,
         "height": 100,
-        "mark": "bar",
+        "mark": {
+            "type": "bar",
+            "cursor": "pointer"
+        },
         "encoding": {
             "x": {
                 "field": "iucn_category",
@@ -35,6 +50,13 @@
                 },
                 "legend": null
             },
+            "opacity": {
+                "condition": {
+                    "param": "hover",
+                    "value": 1
+                },
+                "value": 0.4
+            },
             "tooltip": [
                 {
                     "field": "state",
@@ -46,9 +68,16 @@
                 },
                 {
                     "field": "number_of_parks",
-                    "title": "Number of Parks"
+                    "title": "Number of Parks",
+                    "format": ","
                 }
             ]
+        }
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
         }
     }
 }

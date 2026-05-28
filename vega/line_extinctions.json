@@ -95,5 +95,11 @@
                 "title": "Extinctions"
             }
         ]
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
+        }
     }
 }

@@ -1,9 +1,83 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 800,
-    "height": 500,
+    "width": 700,
+    "height": 480,
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 800,
+            "bind": {
+                "input": "range",
+                "min": 400,
+                "max": 2500,
+                "step": 50,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                133,
+                -27
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        133,
+                        -27
+                    ],
+                    [
+                        151,
+                        -33
+                    ],
+                    [
+                        144,
+                        -37
+                    ],
+                    [
+                        115,
+                        -31
+                    ],
+                    [
+                        153,
+                        -27
+                    ],
+                    [
+                        147,
+                        -42
+                    ],
+                    [
+                        138,
+                        -34
+                    ],
+                    [
+                        130,
+                        -19
+                    ]
+                ],
+                "labels": [
+                    "All Australia",
+                    "Sydney / NSW",
+                    "Melbourne / VIC",
+                    "Perth / WA",
+                    "Brisbane / QLD",
+                    "Hobart / TAS",
+                    "Adelaide / SA",
+                    "Darwin / NT"
+                ],
+                "name": "Map Centre: "
+            }
+        }
+    ],
     "projection": {
-        "type": "mercator"
+        "type": "mercator",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
     },
     "data": {
         "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson"
@@ -19,6 +93,12 @@
             "field": "properties.STATE_NAME",
             "type": "nominal",
             "title": "State"
+        }
+    },
+    "config": {
+        "transition": {
+            "duration": 500,
+            "easing": "cubic-in-out"
         }
     }
 }
