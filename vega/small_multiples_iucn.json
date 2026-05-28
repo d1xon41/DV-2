@@ -1,5 +1,4 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
         "url": "data/iucn_by_state.csv"
     },

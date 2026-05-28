@@ -1,5 +1,4 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Growth of Protected Areas by State (2000-2020)",
     "width": 700,
     "height": 480,
