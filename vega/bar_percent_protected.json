@@ -6,7 +6,7 @@
     },
     "params": [
         {
-            "name": "hover",
+            "name": "hover_percent_protected",
             "select": {
                 "type": "point",
                 "on": "mouseover",
@@ -68,7 +68,7 @@
                 },
                 "size": {
                     "condition": {
-                        "param": "hover",
+                        "param": "hover_percent_protected",
                         "value": 250
                     },
                     "value": 150

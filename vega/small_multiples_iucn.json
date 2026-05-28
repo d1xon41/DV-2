@@ -4,7 +4,7 @@
     },
     "params": [
         {
-            "name": "hover",
+            "name": "hover_multiples_iucn",
             "select": {
                 "type": "point",
                 "on": "mouseover",
@@ -51,7 +51,7 @@
             },
             "opacity": {
                 "condition": {
-                    "param": "hover",
+                    "param": "hover_multiples_iucn",
                     "value": 1
                 },
                 "value": 0.4

@@ -6,7 +6,7 @@
     },
     "params": [
         {
-            "name": "hover",
+            "name": "hover_landuse",
             "select": {
                 "type": "point",
                 "on": "mouseover",
@@ -68,7 +68,7 @@
                 },
                 "size": {
                     "condition": {
-                        "param": "hover",
+                        "param": "hover_landuse",
                         "value": 200
                     },
                     "value": 100

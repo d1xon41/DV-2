@@ -6,7 +6,7 @@
     },
     "params": [
         {
-            "name": "hover",
+            "name": "hover_bioregions",
             "select": {
                 "type": "point",
                 "on": "mouseover",
@@ -68,7 +68,7 @@
                 },
                 "size": {
                     "condition": {
-                        "param": "hover",
+                        "param": "hover_bioregions",
                         "value": 200
                     },
                     "value": 100

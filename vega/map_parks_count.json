@@ -6,7 +6,7 @@
     },
     "params": [
         {
-            "name": "hover",
+            "name": "hover_parks_count",
             "select": {
                 "type": "point",
                 "on": "mouseover",
@@ -68,7 +68,7 @@
                 },
                 "size": {
                     "condition": {
-                        "param": "hover",
+                        "param": "hover_parks_count",
                         "value": 250
                     },
                     "value": 120
