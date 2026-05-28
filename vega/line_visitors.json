@@ -1,54 +1,109 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 600,
-    "height": 350,
     "data": {
         "url": "data/park_visitors.csv"
     },
-    "mark": {
-        "type": "line",
-        "point": {
-            "filled": true,
-            "size": 80
-        }
-    },
-    "encoding": {
-        "x": {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
-        },
-        "y": {
-            "field": "visitors",
-            "type": "quantitative",
-            "title": "Annual Visitors"
-        },
-        "color": {
-            "field": "park",
-            "type": "nominal",
-            "title": "National Park",
-            "scale": {
-                "range": [
-                    "#1a4a2e",
-                    "#2d7a3a",
-                    "#81c784"
+    "vconcat": [
+        {
+            "width": 500,
+            "height": 250,
+            "title": "Visitor Trends — Selected Period",
+            "mark": {
+                "type": "line",
+                "point": {
+                    "filled": true,
+                    "size": 80
+                }
+            },
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "ordinal",
+                    "title": "Year",
+                    "scale": {
+                        "domain": {
+                            "param": "year_brush"
+                        }
+                    }
+                },
+                "y": {
+                    "field": "visitors",
+                    "type": "quantitative",
+                    "title": "Annual Visitors"
+                },
+                "color": {
+                    "field": "park",
+                    "type": "nominal",
+                    "title": "National Park",
+                    "scale": {
+                        "range": [
+                            "#1a4a2e",
+                            "#2d7a3a",
+                            "#81c784"
+                        ]
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "park",
+                        "title": "Park"
+                    },
+                    {
+                        "field": "year",
+                        "title": "Year"
+                    },
+                    {
+                        "field": "visitors",
+                        "title": "Visitors",
+                        "format": ","
+                    }
                 ]
             }
         },
-        "tooltip": [
-            {
-                "field": "park",
-                "title": "Park"
-            },
-            {
-                "field": "year",
-                "title": "Year"
-            },
-            {
-                "field": "visitors",
-                "title": "Visitors",
-                "format": ","
+        {
+            "width": 500,
+            "height": 60,
+            "title": "Drag to filter years",
+            "params": [
+                {
+                    "name": "year_brush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ],
+            "mark": "line",
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "ordinal",
+                    "title": ""
+                },
+                "y": {
+                    "field": "visitors",
+                    "type": "quantitative",
+                    "axis": {
+                        "tickCount": 3,
+                        "grid": false
+                    },
+                    "title": ""
+                },
+                "color": {
+                    "field": "park",
+                    "type": "nominal",
+                    "legend": null,
+                    "scale": {
+                        "range": [
+                            "#1a4a2e",
+                            "#2d7a3a",
+                            "#81c784"
+                        ]
+                    }
+                }
             }
-        ]
-    }
+        }
+    ]
 }

@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 400,
+    "width": 450,
     "height": 300,
     "data": {
         "url": "data/extinctions.csv"
@@ -19,23 +19,41 @@
             ]
         }
     ],
+    "params": [
+        {
+            "name": "group_select",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "group"
+                ]
+            },
+            "bind": "legend"
+        }
+    ],
     "mark": {
         "type": "line",
         "point": {
             "filled": true,
-            "size": 60
+            "size": 80
         }
     },
     "encoding": {
         "x": {
             "field": "decade",
             "type": "ordinal",
-            "title": "Decade"
+            "title": "Decade",
+            "axis": {
+                "grid": false
+            }
         },
         "y": {
             "field": "extinctions",
             "type": "quantitative",
-            "title": "Number of Extinctions"
+            "title": "Number of Extinctions",
+            "axis": {
+                "grid": false
+            }
         },
         "color": {
             "field": "group",
@@ -55,6 +73,13 @@
                     "#a5d6a7"
                 ]
             }
+        },
+        "opacity": {
+            "condition": {
+                "param": "group_select",
+                "value": 1
+            },
+            "value": 0.15
         },
         "tooltip": [
             {
