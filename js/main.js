@@ -2,7 +2,6 @@ const opt = { actions: false };
 
 vegaEmbed('#map-parks',                   'vega/map_parks.json',                    opt);
 vegaEmbed('#map-choropleth',              'vega/map_choropleth.json',               opt);
-vegaEmbed('#map-bubbles',                 'vega/map_bubbles.json',                  opt);
 vegaEmbed('#map-parks-count-choropleth',  'vega/map_parks_count_choropleth.json',   opt);
 vegaEmbed('#bar-parks-count',             'vega/map_parks_count.json',              opt);
 vegaEmbed('#bar-percent-protected',       'vega/bar_percent_protected.json',        opt);
