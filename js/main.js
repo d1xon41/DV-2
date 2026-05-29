@@ -23,50 +23,31 @@ const observer = new IntersectionObserver((entries) => {
       entry.target.classList.add('visible');
     }
   });
-}, {
-  threshold: 0.15,
-  rootMargin: '0px 0px -50px 0px'
-});
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-// Observe all chart cards and section headers
-document.querySelectorAll('.chart-card').forEach(card => {
-  observer.observe(card);
-});
+document.querySelectorAll('.chart-card').forEach(card => observer.observe(card));
+document.querySelectorAll('.section-header').forEach(h => observer.observe(h));
 
-document.querySelectorAll('.section-header').forEach(header => {
-  observer.observe(header);
-});
-
-document.querySelectorAll('.section-tag').forEach(tag => {
-  observer.observe(tag);
-});
-
-// Hero stat counter animation
-function animateCounter(element, target, suffix = '') {
-  const isFloat = target % 1 !== 0;
-  const duration = 1500;
+// Hero counter animation
+function animateCounter(el, target, suffix = '', decimals = 0) {
+  if (!el) return;
+  const duration = 1800;
   const steps = 60;
   const increment = target / steps;
   let current = 0;
   let step = 0;
-
   const timer = setInterval(() => {
     step++;
     current += increment;
-    if (step >= steps) {
-      current = target;
-      clearInterval(timer);
-    }
-    element.textContent = isFloat
-      ? current.toFixed(1) + suffix
+    if (step >= steps) { current = target; clearInterval(timer); }
+    el.textContent = decimals > 0
+      ? current.toFixed(decimals) + suffix
       : Math.floor(current).toLocaleString() + suffix;
   }, duration / steps);
 }
 
-// Animate hero stats on page load
 window.addEventListener('load', () => {
-  const stats = document.querySelectorAll('.stat-num');
-  if (stats[0]) animateCounter(stats[0], 14432);
-  if (stats[1]) animateCounter(stats[1], 22.6, '%');
-  if (stats[2]) animateCounter(stats[2], 173, 'M');
+  animateCounter(document.getElementById('stat-parks'),   14432);
+  animateCounter(document.getElementById('stat-percent'), 22.6, '%', 1);
+  animateCounter(document.getElementById('stat-hectares'),173, 'M');
 });

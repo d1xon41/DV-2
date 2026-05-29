@@ -7,245 +7,315 @@
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito+Sans:wght@300;400;600&family=Teko:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- HERO -->
-<header class="hero">
-  <div class="hero-text">
-    <p class="hero-eyebrow">A DATA STORY</p>
-    <h1>Australia's National Parks<br>&amp; Biodiversity</h1>
-    <p class="hero-sub">Australia is home to some of the most unique and fragile ecosystems on Earth. From ancient rainforests to vast desert reserves, this is the story of how a nation is racing to protect what remains — and what has already been lost.</p>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num">14,432</span>
-      <span class="stat-label">Protected Areas</span>
+  <!-- MASTHEAD -->
+  <header class="hero">
+    <div class="masthead-top">
+      <span>FIT2179 Data Visualisation &mdash; Monash University</span>
+      <span class="masthead-date">May 2026</span>
+      <span>Dixon Salim</span>
     </div>
-    <div class="stat">
-      <span class="stat-num">22.6%</span>
-      <span class="stat-label">Land Protected</span>
+    <div class="masthead-main">
+      <p class="hero-eyebrow">A Data Story &mdash; Australia's Natural Heritage</p>
+      <h1>Australia's National Parks<br><em>&amp; Biodiversity</em></h1>
+      <p class="hero-sub">From ancient rainforests to vast desert reserves — the story of how a nation is racing to protect what remains, and what has already been lost forever.</p>
     </div>
-    <div class="stat">
-      <span class="stat-num">173M</span>
-      <span class="stat-label">Hectares</span>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num" id="stat-parks">0</span>
+        <span class="stat-label">Protected Areas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-percent">0%</span>
+        <span class="stat-label">Land Protected</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-hectares">0M</span>
+        <span class="stat-label">Hectares</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">34</span>
+        <span class="stat-label">Mammal Extinctions</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">89</span>
+        <span class="stat-label">IBRA Bioregions</span>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<!-- SECTION 0 -->
-<section class="section alt-bg">
-  <div class="section-header">
-    <span class="section-tag">00 — GLOBAL CONTEXT</span>
-    <h2>Australia in the world</h2>
-    <p class="section-desc">Australia is one of only 17 megadiverse countries on Earth — a group that together holds over 70% of the world's biodiversity. Its geographic isolation over millions of years produced species found nowhere else: kangaroos, koalas, platypuses, and thousands of unique plant species. Today, Australia's national parks and protected areas form the backbone of global conservation efforts in the Southern Hemisphere. The world map below highlights Australia's protected areas in green, showing their scale relative to the rest of the planet.</p>
-  </div>
-  <div class="chart-grid one-col">
-    <div class="chart-card wide">
-      <h3>Australia's Protected Areas in Global Context</h3>
-      <p class="chart-desc">Australia's protected area network is one of the largest in the world by total land area, reflecting the scale of its conservation ambition.</p>
-      <div id="map-world"></div>
+  <!-- SECTION 0 — GLOBAL CONTEXT -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">00 &mdash; Global Context</span>
+      <h2>Australia in the World</h2>
+      <p class="section-desc">Australia is one of only 17 megadiverse countries on Earth — a group that together holds over 70% of the world's biodiversity. Its geographic isolation over millions of years produced species found nowhere else: kangaroos, koalas, platypuses, and thousands of unique plant species. Today, Australia's national parks and protected areas form the backbone of global conservation efforts in the Southern Hemisphere. The world map below highlights Australia's protected areas in green, showing their scale relative to the rest of the planet's landmass.</p>
     </div>
-  </div>
-</section>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>Australia's Protected Areas in Global Context</h3>
+        <p class="chart-desc">Australia's network (shown in green) is one of the largest protected area systems on Earth by total land area, yet biodiversity loss continues at an alarming rate.</p>
+        <div id="map-world"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 1 -->
-<section class="section">
-  <div class="section-header">
-    <span class="section-tag">01 — COVERAGE</span>
-    <h2>How much of each state is protected?</h2>
-    <p class="section-desc">Protection levels vary dramatically across Australia's states and territories. The Australian Capital Territory leads with over 55% of its land formally protected — partly because it was designed as a capital territory with large nature reserves built in from the start. At the other extreme, Queensland and New South Wales protect less than 10% of their land despite hosting the continent's most biodiverse ecosystems including the Wet Tropics and the Great Barrier Reef hinterland. Click any state to highlight it. Use the zoom and map centre controls to explore specific regions in detail.</p>
-  </div>
-  <div class="chart-grid two-col">
-    <div class="chart-card">
-      <h3>Protected Land by State</h3>
-      <p class="chart-desc">Darker green states have a higher percentage of their total land under formal protection. Click a state to highlight it and use the controls to zoom into specific regions.</p>
-      <div id="map-choropleth"></div>
+  <!-- SECTION 1 — COVERAGE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">01 &mdash; Coverage</span>
+      <h2>How Much of Each State is Protected?</h2>
+      <p class="section-desc">Protection levels vary dramatically across Australia's states and territories. The Australian Capital Territory leads with over 55% of its land formally protected — partly because it was designed as a capital territory with large nature reserves built in from the start. At the other extreme, Queensland and New South Wales protect less than 10% of their land despite hosting the continent's most biodiverse ecosystems including the Wet Tropics and the Great Barrier Reef hinterland.</p>
     </div>
-    <div class="chart-card">
-      <h3>Change in Protection: 2000 to 2020</h3>
-      <p class="chart-desc">Every state has expanded its protected area network over the past two decades. South Australia showed the most dramatic growth, adding over 8 percentage points. Hover over a line to highlight a specific state's trajectory.</p>
-      <div id="bar-percent-protected"></div>
+    <div class="stat-callouts">
+      <div class="stat-callout">
+        <span class="big-num">55.9%</span>
+        <span class="big-label">ACT — most protected</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">9.4%</span>
+        <span class="big-label">QLD — least protected</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">78.7M ha</span>
+        <span class="big-label">WA protected area</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">+8.3%</span>
+        <span class="big-label">SA growth since 2000</span>
+      </div>
     </div>
-  </div>
-</section>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Protected Land by State — Choropleth</h3>
+        <p class="chart-desc">Darker green indicates higher protection. Click any state to highlight it. Use Zoom and Map Centre to explore regions in detail.</p>
+        <div id="map-choropleth"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Change in Protection: 2000 to 2020 — Slope Chart</h3>
+        <p class="chart-desc">Every state expanded its protected area network over two decades. South Australia showed the most dramatic growth. Hover a line to highlight a state's trajectory.</p>
+        <div id="bar-percent-protected"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 1B -->
-<section class="section alt-bg">
-  <div class="section-header">
-    <span class="section-tag">01B — DISTRIBUTION</span>
-    <h2>Where are parks concentrated?</h2>
-    <p class="section-desc">The number of protected areas and the percentage of land protected tell very different stories. Victoria has nearly 5,000 individual protected areas — more than any other state — but only 18% of its land is formally protected, reflecting a network of small, fragmented reserves. Western Australia, by contrast, has far fewer individual parks but protects over 31% of its vast land area through large desert reserves. Use the zoom slider to explore individual states and the dropdown to centre on different cities.</p>
-  </div>
-  <div class="chart-grid one-col">
-    <div class="chart-card wide">
-      <h3>Proportional Symbol Map — Parks by State</h3>
-      <p class="chart-desc">Circle size shows the number of individual protected areas. Colour shows the percentage of state land that is protected. The contrast between Victoria and Western Australia reveals two very different conservation strategies.</p>
-      <div id="map-bubbles-interactive"></div>
+  <!-- SECTION 1B — DISTRIBUTION -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">01B &mdash; Distribution</span>
+      <h2>Where Are Parks Concentrated?</h2>
+      <p class="section-desc">The number of protected areas and the percentage of land protected tell very different stories. Victoria has nearly 5,000 individual protected areas — more than any other state — but only 18% of its land is formally protected, reflecting a network of small, fragmented reserves. Western Australia, by contrast, has far fewer individual parks but protects over 31% of its vast land area through large desert reserves. Use the Zoom slider to explore individual states and the dropdown to centre on different cities.</p>
     </div>
-  </div>
-</section>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>Proportional Symbol Map — Parks by State</h3>
+        <p class="chart-desc">Circle size shows the number of individual protected areas. Colour shows the percentage of state land protected. Use the Zoom and Map Centre controls below the map.</p>
+        <div id="map-bubbles-interactive"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 1C -->
-<section class="section">
-  <div class="section-header">
-    <span class="section-tag">01C — COUNT</span>
-    <h2>Number of parks per state</h2>
-    <p class="section-desc">When we look at raw park counts rather than percentage protected, the spatial pattern shifts dramatically. Victoria dominates not because it is the most committed to conservation, but because it has historically created thousands of small nature reserves, flora reserves, and conservation parks spread across the landscape. This fragmentation is itself a conservation concern — small isolated reserves support fewer species than large connected ones.</p>
-  </div>
-  <div class="chart-grid one-col">
-    <div class="chart-card wide">
-      <h3>Number of Protected Areas by State</h3>
-      <p class="chart-desc">Victoria's count of nearly 5,000 protected areas dwarfs every other state. Click any state to highlight it.</p>
-      <div id="map-parks-count-choropleth"></div>
+  <!-- SECTION 1C — COUNT -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">01C &mdash; Count</span>
+      <h2>Number of Parks Per State</h2>
+      <p class="section-desc">When we look at raw park counts rather than percentage protected, the spatial pattern shifts dramatically. Victoria dominates not because it is the most committed to conservation, but because it has historically created thousands of small nature reserves, flora reserves, and conservation parks spread across the landscape. This fragmentation is itself a conservation concern — small isolated reserves support fewer species than large connected ones. Scientists call this the "extinction debt" — species that still exist today but will eventually disappear as small reserves lose their viability.</p>
     </div>
-  </div>
-</section>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>Number of Protected Areas by State — Choropleth</h3>
+        <p class="chart-desc">Victoria's count of nearly 5,000 protected areas dwarfs every other state. Click any state to highlight it. Use controls to zoom in.</p>
+        <div id="map-parks-count-choropleth"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 1D -->
-<section class="section alt-bg">
-  <div class="section-header">
-    <span class="section-tag">01D — OVER TIME</span>
-    <h2>How has protection grown over time?</h2>
-    <p class="section-desc">Australia's commitment to conservation has grown steadily since 2000. The federal government's National Reserve System targets protecting a comprehensive, adequate and representative sample of Australia's biodiversity. Between 2000 and 2020, total protected land grew from around 10% to over 22% of the continent. South Australia and Western Australia drove much of this growth through the declaration of large Indigenous Protected Areas — a recognition that Indigenous land management has protected biodiversity for tens of thousands of years. Use the Year slider below to watch protection expand state by state.</p>
-  </div>
-  <div class="chart-grid one-col">
-    <div class="chart-card wide">
-      <h3>Protected Land Growth by State (2000–2020)</h3>
-      <p class="chart-desc">Drag the Year slider to animate through time. Use the Map Centre dropdown to zoom into individual states and the Zoom slider to increase detail.</p>
-      <div id="map-choropleth-time"></div>
+  <!-- SECTION 1D — OVER TIME -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">01D &mdash; Over Time</span>
+      <h2>How Has Protection Grown Since 2000?</h2>
+      <p class="section-desc">Australia's commitment to conservation has grown steadily since 2000. The federal government's National Reserve System targets a comprehensive, adequate and representative sample of Australia's biodiversity. Between 2000 and 2020, total protected land grew from around 10% to over 22% of the continent. South Australia and Western Australia drove much of this growth through the declaration of large Indigenous Protected Areas — a recognition that Indigenous land management has protected biodiversity for tens of thousands of years. Drag the Year slider to watch protection expand state by state.</p>
     </div>
-  </div>
-</section>
+    <div class="pull-quote">"Between 2000 and 2020, Australia's protected land doubled — yet scientists say 30% is needed to halt biodiversity decline."</div>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>Protected Land Growth by State (2000–2020) — Animated Choropleth</h3>
+        <p class="chart-desc">Drag the Year slider to animate through time. Use Map Centre to zoom into individual states. Colour intensity shows how protection has deepened over two decades.</p>
+        <div id="map-choropleth-time"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 2 -->
-<section class="section">
-  <div class="section-header">
-    <span class="section-tag">02 — QUANTITY</span>
-    <h2>What does the scale of protection look like?</h2>
-    <p class="section-desc">Size matters enormously in conservation. A single large reserve is far more ecologically valuable than many small, disconnected ones because it supports viable populations of wide-ranging animals, maintains intact food webs, and allows species to move as the climate changes. The scatterplot below reveals the relationship between total state size and total protected area — drag to select and compare groups of states. Western Australia's position reflects the sheer scale of its desert reserves.</p>
-  </div>
-  <div class="chart-grid two-col">
-    <div class="chart-card">
-      <h3>Number of Protected Areas by State</h3>
-      <p class="chart-desc">Victoria leads in count, but this reflects many small reserves rather than large intact ecosystems. Hover over each point to see details.</p>
-      <div id="bar-parks-count"></div>
+  <!-- SECTION 2 — QUANTITY -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">02 &mdash; Quantity</span>
+      <h2>What Does the Scale of Protection Look Like?</h2>
+      <p class="section-desc">Size matters enormously in conservation. A single large reserve is far more ecologically valuable than many small, disconnected ones because it supports viable populations of wide-ranging animals, maintains intact food webs, and allows species to move as the climate changes. The scatterplot below reveals the relationship between total state size and protected area — larger states protect more land in absolute terms, but smaller states protect a far greater proportion. Drag to select and compare groups of states.</p>
     </div>
-    <div class="chart-card">
-      <h3>State Area vs Protected Area</h3>
-      <p class="chart-desc">Larger states tend to protect more land in absolute terms, but smaller states — particularly the ACT and Tasmania — protect a far greater proportion. Drag to select and compare states. Circle size shows the number of individual parks.</p>
-      <div id="scatter-area"></div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Number of Protected Areas by State — Lollipop</h3>
+        <p class="chart-desc">Victoria leads in count, but this reflects many small reserves rather than large intact ecosystems. Hover any point to enlarge it and see details.</p>
+        <div id="bar-parks-count"></div>
+      </div>
+      <div class="chart-card">
+        <h3>State Area vs Protected Area — Bubble Scatterplot</h3>
+        <p class="chart-desc">Log scale on both axes reveals how states of vastly different sizes compare. Circle size shows park count. Drag to brush-select states and compare them.</p>
+        <div id="scatter-area"></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SECTION 3 -->
-<section class="section alt-bg">
-  <div class="section-header">
-    <span class="section-tag">03 — CLASSIFICATION</span>
-    <h2>How are protected areas classified?</h2>
-    <p class="section-desc">Not all protected areas offer the same level of protection. The International Union for Conservation of Nature (IUCN) classifies reserves from Category Ia — strict wilderness areas with almost no human access — to Category VI — sustainable use areas where controlled resource extraction is permitted. Australia's reserve system is heavily weighted toward Category VI, largely because of the inclusion of Indigenous Protected Areas (IPAs) across the arid interior. While IPAs provide genuine protection through Indigenous land management, critics argue Australia's headline 22% protected figure overstates the rigour of its conservation network. The heatmap below lets you compare how each state uses different categories — click a cell to highlight it.</p>
-  </div>
-  <div class="chart-grid two-col">
-    <div class="chart-card">
-      <h3>Area by IUCN Protection Category</h3>
-      <p class="chart-desc">Category VI areas dominate by total hectares, reflecting the role of large Indigenous Protected Areas in Australia's reserve network. Click any bubble to highlight that category.</p>
-      <div id="bar-iucn"></div>
+  <!-- SECTION 3 — CLASSIFICATION -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">03 &mdash; Classification</span>
+      <h2>How Are Protected Areas Classified?</h2>
+      <p class="section-desc">Not all protected areas offer the same level of protection. The IUCN classifies reserves from Category Ia — strict wilderness areas with almost no human access — to Category VI — sustainable use areas where controlled resource extraction is permitted. Australia's reserve system is heavily weighted toward Category VI, largely because of the inclusion of Indigenous Protected Areas across the arid interior. Critics argue Australia's headline 22% protected figure overstates the rigour of its conservation network. The heatmap below compares how each state uses different protection categories — click a cell to highlight it.</p>
     </div>
-    <div class="chart-card">
-      <h3>IUCN Category Breakdown by State</h3>
-      <p class="chart-desc">Each cell shows the number of parks of that category in that state. Victoria's dense cluster of Category IV reserves contrasts sharply with WA and SA's reliance on Category VI. Click any cell to highlight it.</p>
-      <div id="small-multiples-iucn"></div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Area by IUCN Protection Category — Bubble Chart</h3>
+        <p class="chart-desc">Category VI areas dominate by hectares, reflecting the role of large Indigenous Protected Areas. Click any bubble to highlight that category.</p>
+        <div id="bar-iucn"></div>
+      </div>
+      <div class="chart-card">
+        <h3>IUCN Breakdown by State — Heatmap</h3>
+        <p class="chart-desc">Each cell shows the number of parks of that category in that state. Victoria's Category IV cluster contrasts sharply with WA and SA's reliance on Category VI. Click any cell to highlight it.</p>
+        <div id="small-multiples-iucn"></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SECTION 4 -->
-<section class="section">
-  <div class="section-header">
-    <span class="section-tag">04 — GOVERNANCE</span>
-    <h2>Who manages Australia's protected areas?</h2>
-    <p class="section-desc">Australia's national parks are managed by a patchwork of institutions. Commonwealth, state and territory government agencies manage the majority in number, but community and joint management — which includes Indigenous co-management arrangements — covers the largest land area by contribution to the National Reserve System. Uluru-Kata Tjuta and Kakadu are among the most famous co-managed parks, where Traditional Owners hold primary custodianship. Private conservation, through nature refuges and conservation covenants, has grown significantly in recent decades as landholders choose to protect habitat on their own properties. Click any segment to highlight it.</p>
-  </div>
-  <div class="chart-grid two-col">
-    <div class="chart-card">
-      <h3>Protected Areas by Governance Type</h3>
-      <p class="chart-desc">Community-governed areas contribute nearly 50% of the National Reserve System despite comprising only 83 individual areas — a reflection of the enormous scale of Indigenous Protected Areas.</p>
-      <div id="bar-governance"></div>
+  <!-- SECTION 4 — GOVERNANCE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">04 &mdash; Governance</span>
+      <h2>Who Manages Australia's Protected Areas?</h2>
+      <p class="section-desc">Australia's national parks are managed by a patchwork of institutions. Government agencies manage the majority in number, but community and joint management — including Indigenous co-management — covers the largest land area by contribution to the National Reserve System. Uluru-Kata Tjuta and Kakadu are among the most famous co-managed parks, where Traditional Owners hold primary custodianship. Private conservation, through nature refuges and covenants, has grown significantly as landholders choose to protect habitat on their own properties. Click any segment in both charts to highlight it.</p>
     </div>
-    <div class="chart-card">
-      <h3>How Australia Uses Its Land</h3>
-      <p class="chart-desc">Grazing dominates at 54% of land area, dwarfing all other uses. Nature conservation at 22.6% is significant but competes directly with agricultural and pastoral interests across the continent. Hover over a segment to explore details.</p>
-      <div id="donut-landuse"></div>
+    <div class="stat-callouts">
+      <div class="stat-callout">
+        <span class="big-num">49.5%</span>
+        <span class="big-label">NRS from community governance</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">54%</span>
+        <span class="big-label">Australia used for grazing</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">22.6%</span>
+        <span class="big-label">Under conservation</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">6,770</span>
+        <span class="big-label">Private protected areas</span>
+      </div>
     </div>
-  </div>
-</section>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Protected Areas by Governance Type — Radial Chart</h3>
+        <p class="chart-desc">Community-governed areas contribute nearly 50% of the National Reserve System despite comprising only 83 individual areas — reflecting the enormous scale of Indigenous Protected Areas.</p>
+        <div id="bar-governance"></div>
+      </div>
+      <div class="chart-card">
+        <h3>How Australia Uses Its Land — Marimekko Chart</h3>
+        <p class="chart-desc">Grazing dominates at 54% of land area, dwarfing all other uses. Nature conservation at 22.6% competes directly with pastoral and agricultural interests. Hover any segment for details.</p>
+        <div id="donut-landuse"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 5 -->
-<section class="section alt-bg">
-  <div class="section-header">
-    <span class="section-tag">05 — BIOREGIONS</span>
-    <h2>Which bioregions are best protected?</h2>
-    <p class="section-desc">Australia is divided into 89 bioregions under the Interim Biogeographic Regionalisation of Australia (IBRA) framework — each a distinct ecological zone defined by its geology, climate, flora and fauna. Conservation scientists use bioregions to assess whether the full diversity of Australian ecosystems is represented in the reserve network. The results are stark: arid desert bioregions in Western Australia and the Northern Territory are well represented, often because they have little agricultural value. But biodiversity-rich regions — the tropical savannas, the temperate woodlands, the coastal heaths — remain badly underrepresented. Hover over any dot to see its exact protection level.</p>
-  </div>
-  <div class="chart-grid two-col">
-    <div class="chart-card">
-      <h3>Top 15 Bioregions by Protected Area</h3>
-      <p class="chart-desc">The Great Sandy and Great Victoria Deserts lead by total protected hectares, but their high protection levels partly reflect low agricultural pressure rather than targeted conservation investment. Hover any dot to see % protected and total area.</p>
-      <div id="bar-bioregions"></div>
+  <!-- SECTION 5 — BIOREGIONS -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">05 &mdash; Bioregions</span>
+      <h2>Which Bioregions Are Best Protected?</h2>
+      <p class="section-desc">Australia is divided into 89 bioregions under the IBRA framework — each a distinct ecological zone defined by geology, climate, flora and fauna. The results are stark: arid desert bioregions in WA and the NT are well represented, often because they have little agricultural value. But biodiversity-rich regions — tropical savannas, temperate woodlands, coastal heaths — remain badly underrepresented. Meanwhile, national parks attract millions of visitors each year, making them economic assets as well as conservation tools. COVID-19 in 2020 revealed how fragile that tourism economy is. Drag the lower overview chart to filter visitor trends to a specific period.</p>
     </div>
-    <div class="chart-card">
-      <h3>Visitor Trends at Major Parks (2010–2023)</h3>
-      <p class="chart-desc">National parks serve both conservation and tourism purposes. Visitor numbers reveal the cultural importance of these places — and the vulnerability of remote parks like Kakadu and Uluru to travel disruptions. COVID-19 in 2020 caused visitation to collapse by 50–80% at every park. Drag the lower overview chart to filter to a specific period.</p>
-      <div id="line-visitors"></div>
+    <div class="pull-quote">"The most biodiverse parts of Australia are often the least protected — while the most protected regions are largely arid desert."</div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Top 15 Bioregions by Protected Area — Strip Plot</h3>
+        <p class="chart-desc">The Great Sandy and Great Victoria Deserts lead by total protected hectares. Hover any dot to see its exact protection level and total area.</p>
+        <div id="bar-bioregions"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Visitor Trends at Major Parks (2010–2023) — Overview+Detail</h3>
+        <p class="chart-desc">Blue Mountains dwarfs all other parks by visitor count. The 2020 COVID collapse is visible across every park. Drag the lower chart to zoom into any time period.</p>
+        <div id="line-visitors"></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SECTION 6 -->
-<section class="section">
-  <div class="section-header">
-    <span class="section-tag">06 — EXTINCTION CRISIS</span>
-    <h2>Australia's record of species loss</h2>
-    <p class="section-desc">Australia has the worst mammal extinction record of any country on Earth. Since European settlement in 1788, at least 34 mammal species have been declared extinct — more than any other nation. The causes are well understood: land clearing destroyed habitat at an industrial scale, introduced predators such as foxes and cats have decimated small native mammals, and altered fire regimes have transformed entire ecosystems. The tragedy is not historical — extinctions continue today. The Bramble Cay Melomys, a small rodent living on a single island in the Torres Strait, was declared extinct in 2019 in what scientists describe as the world's first recorded mammal extinction caused by climate change. Click the legend to isolate individual animal groups. The streamgraph below shows how extinction events have clustered across decades.</p>
-  </div>
-  <div class="chart-grid two-col">
-    <div class="chart-card">
-      <h3>Species Extinctions by Decade — Streamgraph</h3>
-      <p class="chart-desc">The wave of mammal extinctions peaked in the early 1900s as foxes and cats spread across the continent. A second wave of frog extinctions emerged in the 1980s and 1990s, linked to the chytrid fungus pandemic. Click the legend to isolate a group.</p>
-      <div id="line-extinctions"></div>
+  <!-- SECTION 6 — EXTINCTION CRISIS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">06 &mdash; Extinction Crisis</span>
+      <h2>Australia's Record of Species Loss</h2>
+      <p class="section-desc">Australia has the worst mammal extinction record of any country on Earth. Since European settlement in 1788, at least 34 mammal species have been declared extinct — more than any other nation. The causes are well understood: land clearing destroyed habitat at industrial scale, introduced predators such as foxes and cats have decimated small native mammals, and altered fire regimes have transformed entire ecosystems. The tragedy is not historical — extinctions continue today. The Bramble Cay Melomys, a small rodent on a single island in the Torres Strait, was declared extinct in 2019 — the world's first recorded mammal extinction caused by climate change.</p>
     </div>
-    <div class="chart-card">
-      <h3>Total Extinctions by Animal Group</h3>
-      <p class="chart-desc">Mammals account for over half of all recorded Australian extinctions — a share that has no parallel among comparable nations. Birds and frogs follow, with reptiles only beginning to show significant losses in recent decades as climate change accelerates. Click any segment to highlight it.</p>
-      <div id="bar-extinctions"></div>
+    <div class="stat-callouts">
+      <div class="stat-callout">
+        <span class="big-num">34</span>
+        <span class="big-label">Mammal species extinct</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">#1</span>
+        <span class="big-label">Worst mammal extinction rate</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">2019</span>
+        <span class="big-label">First climate extinction recorded</span>
+      </div>
+      <div class="stat-callout">
+        <span class="big-num">1900s</span>
+        <span class="big-label">Peak extinction decade</span>
+      </div>
     </div>
-  </div>
-</section>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Species Extinctions by Decade — Streamgraph</h3>
+        <p class="chart-desc">The wave of mammal extinctions peaked in the early 1900s as foxes and cats spread across the continent. A second wave of frog extinctions emerged in the 1980s and 1990s. Click the legend to isolate a group.</p>
+        <div id="line-extinctions"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Total Extinctions by Animal Group — Radial Chart</h3>
+        <p class="chart-desc">Mammals account for over half of all recorded Australian extinctions — a share with no parallel among comparable nations. Click any segment to highlight it.</p>
+        <div id="bar-extinctions"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 7 -->
-<section class="section alt-bg">
-  <div class="section-header">
-    <span class="section-tag">07 — THE FULL PICTURE</span>
-    <h2>Australia's protected areas at a glance</h2>
-    <p class="section-desc">The National Reserve System is the culmination of decades of conservation effort by governments, Indigenous communities, scientists, and private landholders. It is one of the largest protected area networks on Earth by total land area. Yet the work is far from finished. Scientists estimate that at least 30% of Australia's land area needs formal protection to halt biodiversity decline — the so-called "30 by 30" target that Australia has committed to achieving by 2030. With 22.6% currently protected, the gap is real but closeable. The base map below shows Australia's state boundaries — use the controls to zoom in and explore.</p>
-  </div>
-  <div class="chart-grid one-col">
-    <div class="chart-card wide">
-      <h3>National Reserve System — Australia</h3>
-      <p class="chart-desc">Australia's protected area network spans every state and territory, from Antarctic territories to tropical rainforests. Use the Zoom slider and Map Centre dropdown to explore specific regions.</p>
-      <div id="map-parks"></div>
+  <!-- SECTION 7 — FULL PICTURE -->
+  <section class="section alt-bg">
+    <div class="section-header">
+      <span class="section-tag">07 &mdash; The Full Picture</span>
+      <h2>Australia's Protected Areas at a Glance</h2>
+      <p class="section-desc">The National Reserve System is the culmination of decades of conservation effort by governments, Indigenous communities, scientists, and private landholders. It is one of the largest protected area networks on Earth by total land area. Yet the work is far from finished. Scientists estimate that at least 30% of Australia's land area needs formal protection to halt biodiversity decline — the "30 by 30" target that Australia has committed to achieving by 2030. With 22.6% currently protected, the gap is real but closeable. Every park declared, every co-management agreement signed, every private covenant registered brings Australia closer to that goal.</p>
     </div>
-  </div>
-</section>
+    <div class="pull-quote">"Australia has committed to 30% protected land by 2030. With 22.6% today, the race is on."</div>
+    <div class="chart-grid one-col">
+      <div class="chart-card wide">
+        <h3>National Reserve System — Australia</h3>
+        <p class="chart-desc">Australia's protected area network spans every state and territory. Use the Zoom slider and Map Centre dropdown to explore specific regions in detail.</p>
+        <div id="map-parks"></div>
+      </div>
+    </div>
+  </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p>Data sources: Collaborative Australian Protected Areas Database (CAPAD) 2024, Australian Government DCCEEW &middot; State of Environment Report 2021, Australian Government &middot; Parks Australia Visitor Statistics &middot; IBRA Bioregions 2024, DCCEEW.</p>
-  <p>Created by Dixon Salim &middot; May 2026 &middot; FIT2179 Data Visualisation, Monash University &middot; AI tools used for grammar and code assistance, acknowledged per LearnHQ guidelines.</p>
-</footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Data sources: Collaborative Australian Protected Areas Database (CAPAD) 2024, DCCEEW &middot; State of Environment Report 2021, Australian Government &middot; Parks Australia Visitor Statistics &middot; IBRA Bioregions 2024, DCCEEW &middot; ABS Land Account Australia.</p>
+    <p>Created by Dixon Salim &middot; May 2026 &middot; FIT2179 Data Visualisation, Monash University &middot; AI tools used for grammar and code assistance, acknowledged per LearnHQ guidelines.</p>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
