@@ -6,21 +6,32 @@
     "data": {
         "url": "data/parks_by_governance.csv"
     },
+    "params": [
+        {
+            "name": "gov_metric",
+            "value": "area_ha",
+            "bind": {
+                "input": "radio",
+                "options": [
+                    "area_ha",
+                    "number_of_parks"
+                ],
+                "labels": [
+                    "Land Area (ha)",
+                    "Number of Parks"
+                ],
+                "name": "Show: "
+            }
+        }
+    ],
     "transform": [
         {
             "calculate": "1",
             "as": "equal_sector"
-        }
-    ],
-    "params": [
+        },
         {
-            "name": "gov_select",
-            "select": {
-                "type": "point",
-                "fields": [
-                    "governance_type"
-                ]
-            }
+            "calculate": "gov_metric === 'area_ha' ? datum.area_ha : datum.number_of_parks",
+            "as": "selected_value"
         }
     ],
     "mark": {
@@ -37,7 +48,7 @@
             "stack": true
         },
         "radius": {
-            "field": "area_ha",
+            "field": "selected_value",
             "type": "quantitative",
             "scale": {
                 "rangeMin": 25,
@@ -62,13 +73,6 @@
                     "#a5d6a7"
                 ]
             }
-        },
-        "opacity": {
-            "condition": {
-                "param": "gov_select",
-                "value": 1
-            },
-            "value": 0.3
         },
         "tooltip": [
             {
@@ -100,7 +104,7 @@
             "fillColor": "#ede3cc"
         },
         "transition": {
-            "duration": 400,
+            "duration": 500,
             "easing": "cubic-in-out"
         }
     }

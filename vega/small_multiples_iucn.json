@@ -1,79 +1,113 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 350,
-    "height": 280,
+    "height": 350,
+    "background": "#ede3cc",
     "data": {
-        "url": "data/iucn_by_state.csv"
+        "url": "data/parks_by_jurisdiction.csv"
     },
     "params": [
         {
-            "name": "cell_select",
-            "select": {
-                "type": "point",
-                "fields": [
-                    "state",
-                    "iucn_category"
-                ]
+            "name": "show_metric",
+            "value": "number_of_parks",
+            "bind": {
+                "input": "radio",
+                "options": [
+                    "number_of_parks",
+                    "percent_protected"
+                ],
+                "labels": [
+                    "Number of Parks",
+                    "% Land Protected"
+                ],
+                "name": "Show: "
             }
         }
     ],
+    "transform": [
+        {
+            "calculate": "1",
+            "as": "equal_sector"
+        },
+        {
+            "calculate": "show_metric === 'number_of_parks' ? datum.number_of_parks : datum.percent_protected",
+            "as": "selected_value"
+        }
+    ],
     "mark": {
-        "type": "rect",
-        "cursor": "pointer",
-        "cornerRadius": 4
+        "type": "arc",
+        "innerRadius": 25,
+        "stroke": "#ede3cc",
+        "strokeWidth": 2,
+        "cursor": "pointer"
     },
     "encoding": {
-        "x": {
-            "field": "iucn_category",
-            "type": "ordinal",
-            "title": "IUCN Category",
-            "axis": {
-                "labelAngle": 0
+        "theta": {
+            "field": "equal_sector",
+            "type": "quantitative",
+            "stack": true
+        },
+        "radius": {
+            "field": "selected_value",
+            "type": "quantitative",
+            "scale": {
+                "rangeMin": 25,
+                "rangeMax": 155
             }
         },
-        "y": {
+        "color": {
             "field": "state",
             "type": "nominal",
+            "scale": {
+                "domain": [
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "range": [
+                    "#1a4a2e",
+                    "#2d6a3e",
+                    "#3d8a50",
+                    "#4da062",
+                    "#66bb6a",
+                    "#81c784",
+                    "#a5d6a7",
+                    "#c8e6c9"
+                ]
+            },
             "title": "State"
-        },
-        "color": {
-            "condition": {
-                "param": "cell_select",
-                "field": "number_of_parks",
-                "type": "quantitative",
-                "scale": {
-                    "scheme": "greens"
-                },
-                "title": "Number of Parks"
-            },
-            "value": "#f0f0f0"
-        },
-        "opacity": {
-            "condition": {
-                "param": "cell_select",
-                "value": 1
-            },
-            "value": 0.4
         },
         "tooltip": [
             {
-                "field": "state",
+                "field": "state_name",
                 "title": "State"
-            },
-            {
-                "field": "iucn_category",
-                "title": "IUCN Category"
             },
             {
                 "field": "number_of_parks",
                 "title": "Number of Parks",
                 "format": ","
+            },
+            {
+                "field": "percent_protected",
+                "title": "% Protected",
+                "format": ".2f"
             }
         ]
     },
     "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
-            "duration": 400,
+            "duration": 500,
             "easing": "cubic-in-out"
         }
     }

@@ -1,90 +1,93 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 420,
-    "height": 420,
+    "width": 350,
+    "height": 280,
     "background": "#ede3cc",
     "data": {
-        "url": "data/parks_by_bioregion.csv"
+        "url": "data/iucn_by_state.csv"
     },
     "params": [
         {
-            "name": "hover",
-            "select": {
-                "type": "point",
-                "on": "mouseover",
-                "fields": [
-                    "bioregion"
-                ]
+            "name": "state_filter",
+            "value": "All",
+            "bind": {
+                "input": "select",
+                "options": [
+                    "All",
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "labels": [
+                    "All States",
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "name": "Compare State: "
             }
         }
     ],
+    "transform": [
+        {
+            "filter": "state_filter === 'All' || datum.state === state_filter"
+        }
+    ],
     "mark": {
-        "type": "point",
-        "filled": true,
-        "cursor": "pointer"
+        "type": "rect",
+        "cursor": "pointer",
+        "cornerRadius": 3
     },
     "encoding": {
-        "y": {
-            "field": "bioregion",
-            "type": "nominal",
-            "sort": {
-                "field": "area_protected_ha",
-                "order": "descending"
-            },
-            "title": null,
+        "x": {
+            "field": "iucn_category",
+            "type": "ordinal",
+            "title": "IUCN Category",
             "axis": {
-                "labelFontSize": 10,
-                "labelLimit": 190
+                "labelAngle": 0,
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
             }
         },
-        "x": {
-            "field": "area_protected_ha",
-            "type": "quantitative",
-            "title": "Protected Area (ha)",
+        "y": {
+            "field": "state",
+            "type": "nominal",
+            "title": "State",
             "axis": {
-                "grid": false
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
             }
         },
         "color": {
-            "field": "percent_protected",
+            "field": "number_of_parks",
             "type": "quantitative",
             "scale": {
                 "scheme": "greens"
             },
-            "title": "% Protected"
-        },
-        "size": {
-            "condition": {
-                "param": "hover",
-                "value": 320
-            },
-            "value": 90
-        },
-        "opacity": {
-            "condition": {
-                "param": "hover",
-                "value": 1
-            },
-            "value": 0.55
+            "title": "Parks"
         },
         "tooltip": [
             {
-                "field": "bioregion",
-                "title": "Bioregion"
+                "field": "state",
+                "title": "State"
             },
             {
-                "field": "area_protected_ha",
-                "title": "Protected Area (ha)",
-                "format": ","
+                "field": "iucn_category",
+                "title": "IUCN Category"
             },
             {
-                "field": "percent_protected",
-                "title": "% Protected",
-                "format": ".2f"
-            },
-            {
-                "field": "ibra_area_ha",
-                "title": "Total Bioregion Area (ha)",
+                "field": "number_of_parks",
+                "title": "Number of Parks",
                 "format": ","
             }
         ]

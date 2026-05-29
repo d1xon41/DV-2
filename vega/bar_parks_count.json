@@ -6,21 +6,32 @@
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
+    "params": [
+        {
+            "name": "show_metric",
+            "value": "number_of_parks",
+            "bind": {
+                "input": "radio",
+                "options": [
+                    "number_of_parks",
+                    "percent_protected"
+                ],
+                "labels": [
+                    "Number of Parks",
+                    "% Land Protected"
+                ],
+                "name": "Show: "
+            }
+        }
+    ],
     "transform": [
         {
             "calculate": "1",
             "as": "equal_sector"
-        }
-    ],
-    "params": [
+        },
         {
-            "name": "state_select",
-            "select": {
-                "type": "point",
-                "fields": [
-                    "state"
-                ]
-            }
+            "calculate": "show_metric === 'number_of_parks' ? datum.number_of_parks : datum.percent_protected",
+            "as": "selected_value"
         }
     ],
     "mark": {
@@ -37,7 +48,7 @@
             "stack": true
         },
         "radius": {
-            "field": "number_of_parks",
+            "field": "selected_value",
             "type": "quantitative",
             "scale": {
                 "rangeMin": 25,
@@ -71,13 +82,6 @@
             },
             "title": "State"
         },
-        "opacity": {
-            "condition": {
-                "param": "state_select",
-                "value": 1
-            },
-            "value": 0.35
-        },
         "tooltip": [
             {
                 "field": "state_name",
@@ -103,7 +107,7 @@
             "fillColor": "#ede3cc"
         },
         "transition": {
-            "duration": 400,
+            "duration": 500,
             "easing": "cubic-in-out"
         }
     }

@@ -8,13 +8,21 @@
     },
     "params": [
         {
-            "name": "segment_hover",
-            "select": {
-                "type": "point",
-                "on": "mouseover",
-                "fields": [
-                    "land_use"
-                ]
+            "name": "sort_mode",
+            "value": "original",
+            "bind": {
+                "input": "radio",
+                "options": [
+                    "original",
+                    "ascending",
+                    "descending"
+                ],
+                "labels": [
+                    "Default Order",
+                    "Smallest First",
+                    "Largest First"
+                ],
+                "name": "Sort by area: "
             }
         }
     ],
@@ -30,7 +38,9 @@
             "type": "quantitative",
             "title": "Cumulative % of Australia's Land",
             "axis": {
-                "grid": false
+                "grid": false,
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
             }
         },
         "x2": {
@@ -64,14 +74,13 @@
                     "#c9a227",
                     "#7a3420"
                 ]
-            }
-        },
-        "opacity": {
-            "condition": {
-                "param": "segment_hover",
-                "value": 1
             },
-            "value": 0.5
+            "sort": {
+                "field": "area_million_ha",
+                "order": {
+                    "expr": "sort_mode === 'ascending' ? 'ascending' : sort_mode === 'descending' ? 'descending' : null"
+                }
+            }
         },
         "tooltip": [
             {

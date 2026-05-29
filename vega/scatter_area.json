@@ -9,42 +9,66 @@
     "transform": [
         {
             "calculate": "datum.percent_protected / 60 * 100",
-            "as": "% Protected (norm)"
+            "as": "pct_norm"
         },
         {
             "calculate": "datum.contribution_to_nrs * 2",
-            "as": "NRS Contribution (norm)"
+            "as": "nrs_norm"
         },
         {
             "calculate": "datum.number_of_parks / 47.09",
-            "as": "Park Count (norm)"
+            "as": "count_norm"
         },
         {
             "calculate": "datum.protected_area_ha / 860000",
-            "as": "Protected Area (norm)"
+            "as": "area_norm"
         },
         {
             "fold": [
-                "% Protected (norm)",
-                "NRS Contribution (norm)",
-                "Park Count (norm)",
-                "Protected Area (norm)"
+                "pct_norm",
+                "nrs_norm",
+                "count_norm",
+                "area_norm"
             ],
             "as": [
                 "metric",
                 "value"
             ]
+        },
+        {
+            "calculate": "datum.metric === 'pct_norm' ? '% Protected' : datum.metric === 'nrs_norm' ? 'NRS Contribution' : datum.metric === 'count_norm' ? 'Park Count' : 'Protected Area'",
+            "as": "metric_label"
         }
     ],
     "params": [
         {
-            "name": "state_hover",
-            "select": {
-                "type": "point",
-                "on": "mouseover",
-                "fields": [
-                    "state"
-                ]
+            "name": "state_highlight",
+            "value": "All",
+            "bind": {
+                "input": "select",
+                "options": [
+                    "All",
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "labels": [
+                    "All States",
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "name": "Highlight State: "
             }
         }
     ],
@@ -52,24 +76,25 @@
         "type": "line",
         "point": {
             "filled": true,
-            "size": 50
+            "size": 60
         }
     },
     "encoding": {
         "x": {
-            "field": "metric",
+            "field": "metric_label",
             "type": "nominal",
             "title": null,
             "sort": [
-                "% Protected (norm)",
-                "NRS Contribution (norm)",
-                "Park Count (norm)",
-                "Protected Area (norm)"
+                "% Protected",
+                "NRS Contribution",
+                "Park Count",
+                "Protected Area"
             ],
             "axis": {
                 "labelAngle": -12,
                 "labelFontSize": 10,
-                "grid": false
+                "grid": false,
+                "labelColor": "#3d3020"
             }
         },
         "y": {
@@ -77,51 +102,56 @@
             "type": "quantitative",
             "title": "Relative Score (0–100)",
             "axis": {
-                "grid": false
+                "grid": false,
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
             }
         },
         "color": {
-            "condition": {
-                "param": "state_hover",
-                "field": "state",
-                "type": "nominal",
-                "scale": {
-                    "domain": [
-                        "ACT",
-                        "NSW",
-                        "NT",
-                        "QLD",
-                        "SA",
-                        "TAS",
-                        "VIC",
-                        "WA"
-                    ],
-                    "range": [
-                        "#1a4a2e",
-                        "#2d6a3e",
-                        "#3d8a50",
-                        "#4da062",
-                        "#66bb6a",
-                        "#81c784",
-                        "#a5d6a7",
-                        "#c8e6c9"
-                    ]
-                },
-                "legend": {
-                    "title": "State"
-                }
+            "field": "state",
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "range": [
+                    "#1a4a2e",
+                    "#2d6a3e",
+                    "#3d8a50",
+                    "#4da062",
+                    "#66bb6a",
+                    "#81c784",
+                    "#a5d6a7",
+                    "#c8e6c9"
+                ]
             },
-            "value": "#c8b898"
+            "legend": {
+                "title": "State"
+            }
         },
         "detail": {
             "field": "state"
         },
+        "strokeWidth": {
+            "condition": {
+                "test": "state_highlight === 'All' || datum.state === state_highlight",
+                "value": 3
+            },
+            "value": 0.8
+        },
         "opacity": {
             "condition": {
-                "param": "state_hover",
+                "test": "state_highlight === 'All' || datum.state === state_highlight",
                 "value": 1
             },
-            "value": 0.2
+            "value": 0.1
         },
         "tooltip": [
             {
@@ -129,7 +159,7 @@
                 "title": "State"
             },
             {
-                "field": "metric",
+                "field": "metric_label",
                 "title": "Metric"
             },
             {
@@ -141,6 +171,11 @@
     },
     "config": {
         "background": "#ede3cc",
+        "axis": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "gridColor": "#d4c9a8"
+        },
         "legend": {
             "labelColor": "#3d3020",
             "titleColor": "#3d3020",
