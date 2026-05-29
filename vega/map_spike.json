@@ -1,0 +1,183 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 700,
+    "height": 500,
+    "background": "#ede3cc",
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 800,
+            "bind": {
+                "input": "range",
+                "min": 400,
+                "max": 2500,
+                "step": 50,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                133,
+                -27
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        133,
+                        -27
+                    ],
+                    [
+                        151,
+                        -33
+                    ],
+                    [
+                        144,
+                        -37
+                    ],
+                    [
+                        115,
+                        -31
+                    ],
+                    [
+                        153,
+                        -27
+                    ],
+                    [
+                        147,
+                        -42
+                    ],
+                    [
+                        138,
+                        -34
+                    ],
+                    [
+                        130,
+                        -19
+                    ]
+                ],
+                "labels": [
+                    "All Australia",
+                    "Sydney / NSW",
+                    "Melbourne / VIC",
+                    "Perth / WA",
+                    "Brisbane / QLD",
+                    "Hobart / TAS",
+                    "Adelaide / SA",
+                    "Darwin / NT"
+                ],
+                "name": "Map Centre: "
+            }
+        }
+    ],
+    "projection": {
+        "type": "mercator",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson"
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "#d4c9a8",
+                "stroke": "#a09070",
+                "strokeWidth": 1
+            }
+        },
+        {
+            "data": {
+                "url": "data/state_centroids.csv"
+            },
+            "mark": {
+                "type": "rule",
+                "strokeWidth": 14,
+                "strokeCap": "round"
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
+                },
+                "latitude2": {
+                    "field": "latitude_tip",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    },
+                    "title": "% Protected"
+                },
+                "tooltip": [
+                    {
+                        "field": "state_name",
+                        "title": "State"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "title": "Number of Parks",
+                        "format": ","
+                    },
+                    {
+                        "field": "percent_protected",
+                        "title": "% Land Protected",
+                        "format": ".2f"
+                    }
+                ]
+            }
+        },
+        {
+            "data": {
+                "url": "data/state_centroids.csv"
+            },
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 60
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    }
+                }
+            }
+        }
+    ],
+    "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
+        "transition": {
+            "duration": 400,
+            "easing": "cubic-in-out"
+        }
+    }
+}

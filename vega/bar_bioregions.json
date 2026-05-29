@@ -1,7 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 400,
-    "height": 400,
+    "width": 420,
+    "height": 420,
+    "background": "#ede3cc",
     "data": {
         "url": "data/parks_by_bioregion.csv"
     },
@@ -17,116 +18,89 @@
             }
         }
     ],
-    "layer": [
-        {
-            "mark": {
-                "type": "point",
-                "filled": true,
-                "size": 120,
-                "cursor": "pointer"
+    "mark": {
+        "type": "point",
+        "filled": true,
+        "cursor": "pointer"
+    },
+    "encoding": {
+        "y": {
+            "field": "bioregion",
+            "type": "nominal",
+            "sort": {
+                "field": "area_protected_ha",
+                "order": "descending"
             },
-            "encoding": {
-                "y": {
-                    "field": "bioregion",
-                    "type": "nominal",
-                    "sort": {
-                        "field": "area_protected_ha",
-                        "order": "descending"
-                    },
-                    "title": null,
-                    "axis": {
-                        "labelFontSize": 10
-                    }
-                },
-                "x": {
-                    "field": "area_protected_ha",
-                    "type": "quantitative",
-                    "title": "Protected Area (ha)",
-                    "axis": {
-                        "grid": false
-                    }
-                },
-                "color": {
-                    "field": "percent_protected",
-                    "type": "quantitative",
-                    "scale": {
-                        "scheme": "greens"
-                    },
-                    "title": "% Protected"
-                },
-                "size": {
-                    "condition": {
-                        "param": "hover",
-                        "value": 300
-                    },
-                    "value": 120
-                },
-                "opacity": {
-                    "condition": {
-                        "param": "hover",
-                        "value": 1
-                    },
-                    "value": 0.6
-                },
-                "tooltip": [
-                    {
-                        "field": "bioregion",
-                        "title": "Bioregion"
-                    },
-                    {
-                        "field": "area_protected_ha",
-                        "title": "Protected Area (ha)",
-                        "format": ","
-                    },
-                    {
-                        "field": "percent_protected",
-                        "title": "% Protected",
-                        "format": ".2f"
-                    },
-                    {
-                        "field": "ibra_area_ha",
-                        "title": "Total Bioregion Area (ha)",
-                        "format": ","
-                    }
-                ]
+            "title": null,
+            "axis": {
+                "labelFontSize": 10,
+                "labelLimit": 190
             }
         },
-        {
-            "mark": {
-                "type": "text",
-                "align": "left",
-                "dx": 8,
-                "fontSize": 10
-            },
-            "transform": [
-                {
-                    "filter": {
-                        "param": "hover"
-                    }
-                }
-            ],
-            "encoding": {
-                "y": {
-                    "field": "bioregion",
-                    "type": "nominal",
-                    "sort": {
-                        "field": "area_protected_ha",
-                        "order": "descending"
-                    }
-                },
-                "x": {
-                    "field": "area_protected_ha",
-                    "type": "quantitative"
-                },
-                "text": {
-                    "field": "percent_protected",
-                    "type": "quantitative",
-                    "format": ".1f"
-                }
+        "x": {
+            "field": "area_protected_ha",
+            "type": "quantitative",
+            "title": "Protected Area (ha)",
+            "axis": {
+                "grid": false
             }
-        }
-    ],
+        },
+        "color": {
+            "field": "percent_protected",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "greens"
+            },
+            "title": "% Protected"
+        },
+        "size": {
+            "condition": {
+                "param": "hover",
+                "value": 320
+            },
+            "value": 90
+        },
+        "opacity": {
+            "condition": {
+                "param": "hover",
+                "value": 1
+            },
+            "value": 0.55
+        },
+        "tooltip": [
+            {
+                "field": "bioregion",
+                "title": "Bioregion"
+            },
+            {
+                "field": "area_protected_ha",
+                "title": "Protected Area (ha)",
+                "format": ","
+            },
+            {
+                "field": "percent_protected",
+                "title": "% Protected",
+                "format": ".2f"
+            },
+            {
+                "field": "ibra_area_ha",
+                "title": "Total Bioregion Area (ha)",
+                "format": ","
+            }
+        ]
+    },
     "config": {
+        "background": "#ede3cc",
+        "axis": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "gridColor": "#d4c9a8"
+        },
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
             "duration": 400,
             "easing": "cubic-in-out"

@@ -97,6 +97,17 @@
         ]
     },
     "config": {
+        "background": "#ede3cc",
+        "axis": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "gridColor": "#d4c9a8"
+        },
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
             "duration": 400,
             "easing": "cubic-in-out"

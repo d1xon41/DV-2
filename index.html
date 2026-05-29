@@ -112,9 +112,9 @@
     </div>
     <div class="chart-grid one-col">
       <div class="chart-card wide">
-        <h3>Proportional Symbol Map — Parks by State</h3>
-        <p class="chart-desc">Circle size shows the number of individual protected areas. Colour shows the percentage of state land protected. Use the Zoom and Map Centre controls below the map.</p>
-        <div id="map-bubbles-interactive"></div>
+        <h3>Spike Map — Number of Parks by State</h3>
+        <p class="chart-desc">Spike height shows the number of protected areas in each state. Taller spikes indicate more parks. Colour shows what percentage of state land is formally protected. Use Zoom and Map Centre controls below the chart.</p>
+        <div id="map-spike"></div>
       </div>
     </div>
   </section>
@@ -161,13 +161,13 @@
     </div>
     <div class="chart-grid two-col">
       <div class="chart-card">
-        <h3>Number of Protected Areas by State — Lollipop</h3>
-        <p class="chart-desc">Victoria leads in count, but this reflects many small reserves rather than large intact ecosystems. Hover any point to enlarge it and see details.</p>
+        <h3>Number of Protected Areas by State — Nightingale Chart</h3>
+        <p class="chart-desc">Each petal's length shows the number of parks in that state. Victoria's petal dwarfs all others. Click any petal to highlight that state.</p>
         <div id="bar-parks-count"></div>
       </div>
       <div class="chart-card">
-        <h3>State Area vs Protected Area — Bubble Scatterplot</h3>
-        <p class="chart-desc">Log scale on both axes reveals how states of vastly different sizes compare. Circle size shows park count. Drag to brush-select states and compare them.</p>
+        <h3>State Comparison — Parallel Coordinates</h3>
+        <p class="chart-desc">Each line is a state, each vertical axis is a different metric normalised to a 0–100 scale. Lines that stay high across all axes represent the most well-protected states. Hover to highlight a state.</p>
         <div id="scatter-area"></div>
       </div>
     </div>
@@ -304,9 +304,9 @@
     <div class="pull-quote">"Australia has committed to 30% protected land by 2030. With 22.6% today, the race is on."</div>
     <div class="chart-grid one-col">
       <div class="chart-card wide">
-        <h3>National Reserve System — Australia</h3>
-        <p class="chart-desc">Australia's protected area network spans every state and territory. Use the Zoom slider and Map Centre dropdown to explore specific regions in detail.</p>
-        <div id="map-parks"></div>
+        <h3>National Reserve System — Annotated Map</h3>
+        <p class="chart-desc">Each state is labelled with its abbreviation and current % of land protected. Use the Zoom slider and Map Centre dropdown to explore specific regions in detail.</p>
+        <div id="map-annotated"></div>
       </div>
     </div>
   </section>

@@ -1,0 +1,220 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 700,
+    "height": 480,
+    "background": "#ede3cc",
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 800,
+            "bind": {
+                "input": "range",
+                "min": 400,
+                "max": 2500,
+                "step": 50,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                133,
+                -27
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        133,
+                        -27
+                    ],
+                    [
+                        151,
+                        -33
+                    ],
+                    [
+                        144,
+                        -37
+                    ],
+                    [
+                        115,
+                        -31
+                    ],
+                    [
+                        153,
+                        -27
+                    ],
+                    [
+                        147,
+                        -42
+                    ],
+                    [
+                        138,
+                        -34
+                    ],
+                    [
+                        130,
+                        -19
+                    ]
+                ],
+                "labels": [
+                    "All Australia",
+                    "Sydney / NSW",
+                    "Melbourne / VIC",
+                    "Perth / WA",
+                    "Brisbane / QLD",
+                    "Hobart / TAS",
+                    "Adelaide / SA",
+                    "Darwin / NT"
+                ],
+                "name": "Map Centre: "
+            }
+        }
+    ],
+    "projection": {
+        "type": "mercator",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+                "format": {
+                    "type": "json",
+                    "property": "features"
+                }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.STATE_NAME",
+                    "from": {
+                        "data": {
+                            "url": "data/parks_by_jurisdiction.csv"
+                        },
+                        "key": "state_name",
+                        "fields": [
+                            "percent_protected",
+                            "number_of_parks"
+                        ]
+                    }
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "#ffffff",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "color": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    },
+                    "title": "% Land Protected"
+                },
+                "tooltip": [
+                    {
+                        "field": "properties.STATE_NAME",
+                        "type": "nominal",
+                        "title": "State"
+                    },
+                    {
+                        "field": "percent_protected",
+                        "type": "quantitative",
+                        "title": "% Protected",
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "type": "quantitative",
+                        "title": "Number of Parks",
+                        "format": ","
+                    }
+                ]
+            }
+        },
+        {
+            "data": {
+                "url": "data/state_centroids.csv"
+            },
+            "transform": [
+                {
+                    "calculate": "datum.state",
+                    "as": "state_label"
+                },
+                {
+                    "calculate": "datum.percent_protected + '%'",
+                    "as": "pct_label"
+                }
+            ],
+            "layer": [
+                {
+                    "mark": {
+                        "type": "text",
+                        "fontSize": 13,
+                        "fontWeight": "bold",
+                        "dy": -8
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "longitude",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "latitude",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "state_label"
+                        },
+                        "color": {
+                            "value": "#1a1208"
+                        }
+                    }
+                },
+                {
+                    "mark": {
+                        "type": "text",
+                        "fontSize": 10,
+                        "dy": 8,
+                        "fontStyle": "italic"
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "longitude",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "latitude",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "pct_label"
+                        },
+                        "color": {
+                            "value": "#3d3020"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
+        "transition": {
+            "duration": 400,
+            "easing": "cubic-in-out"
+        }
+    }
+}

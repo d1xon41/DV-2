@@ -1,34 +1,11 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 350,
-    "height": 300,
+    "width": 380,
+    "height": 280,
+    "background": "#ede3cc",
     "data": {
-        "url": "data/land_use.csv"
+        "url": "data/land_use_marimekko.csv"
     },
-    "transform": [
-        {
-            "window": [
-                {
-                    "op": "sum",
-                    "field": "percentage",
-                    "as": "running_total"
-                }
-            ]
-        },
-        {
-            "window": [
-                {
-                    "op": "lead",
-                    "field": "land_use",
-                    "as": "next_land_use"
-                }
-            ]
-        },
-        {
-            "calculate": "datum.running_total - datum.percentage",
-            "as": "previous_total"
-        }
-    ],
     "params": [
         {
             "name": "segment_hover",
@@ -42,41 +19,50 @@
         }
     ],
     "mark": {
-        "type": "bar",
-        "cursor": "pointer"
+        "type": "rect",
+        "cursor": "pointer",
+        "stroke": "#ede3cc",
+        "strokeWidth": 2
     },
     "encoding": {
         "x": {
-            "field": "previous_total",
+            "field": "x_start",
             "type": "quantitative",
-            "title": "Cumulative % of Australia",
+            "title": "Cumulative % of Australia's Land",
             "axis": {
                 "grid": false
             }
         },
         "x2": {
-            "field": "running_total"
+            "field": "x_end"
         },
         "y": {
+            "datum": 0
+        },
+        "y2": {
             "field": "area_million_ha",
-            "type": "quantitative",
-            "title": "Area (million ha)",
-            "axis": {
-                "grid": false
-            }
+            "type": "quantitative"
         },
         "color": {
             "field": "land_use",
             "type": "nominal",
             "title": "Land Use",
             "scale": {
+                "domain": [
+                    "Grazing",
+                    "Nature Conservation",
+                    "Other",
+                    "Forestry",
+                    "Agriculture",
+                    "Urban"
+                ],
                 "range": [
+                    "#8b6914",
                     "#1a4a2e",
-                    "#4caf50",
-                    "#81c784",
-                    "#a5d6a7",
-                    "#c8e6c9",
-                    "#e8f5e9"
+                    "#a09070",
+                    "#4a7c3f",
+                    "#c9a227",
+                    "#7a3420"
                 ]
             }
         },
@@ -105,6 +91,17 @@
         ]
     },
     "config": {
+        "background": "#ede3cc",
+        "axis": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "gridColor": "#d4c9a8"
+        },
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
             "duration": 400,
             "easing": "cubic-in-out"

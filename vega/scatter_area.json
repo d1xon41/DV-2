@@ -1,66 +1,124 @@
 {
-    "width": 400,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 420,
     "height": 300,
+    "background": "#ede3cc",
     "data": {
         "url": "data/parks_by_jurisdiction.csv"
     },
+    "transform": [
+        {
+            "calculate": "datum.percent_protected / 60 * 100",
+            "as": "% Protected (norm)"
+        },
+        {
+            "calculate": "datum.contribution_to_nrs * 2",
+            "as": "NRS Contribution (norm)"
+        },
+        {
+            "calculate": "datum.number_of_parks / 47.09",
+            "as": "Park Count (norm)"
+        },
+        {
+            "calculate": "datum.protected_area_ha / 860000",
+            "as": "Protected Area (norm)"
+        },
+        {
+            "fold": [
+                "% Protected (norm)",
+                "NRS Contribution (norm)",
+                "Park Count (norm)",
+                "Protected Area (norm)"
+            ],
+            "as": [
+                "metric",
+                "value"
+            ]
+        }
+    ],
     "params": [
         {
-            "name": "brush",
+            "name": "state_hover",
             "select": {
-                "type": "interval"
+                "type": "point",
+                "on": "mouseover",
+                "fields": [
+                    "state"
+                ]
             }
         }
     ],
     "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 150,
-        "cursor": "crosshair"
+        "type": "line",
+        "point": {
+            "filled": true,
+            "size": 50
+        }
     },
     "encoding": {
         "x": {
-            "field": "jurisdiction_area_ha",
-            "type": "quantitative",
-            "title": "Total State Area (ha)",
-            "scale": {
-                "type": "log"
-            },
+            "field": "metric",
+            "type": "nominal",
+            "title": null,
+            "sort": [
+                "% Protected (norm)",
+                "NRS Contribution (norm)",
+                "Park Count (norm)",
+                "Protected Area (norm)"
+            ],
             "axis": {
+                "labelAngle": -12,
+                "labelFontSize": 10,
                 "grid": false
             }
         },
         "y": {
-            "field": "protected_area_ha",
+            "field": "value",
             "type": "quantitative",
-            "title": "Protected Area (ha)",
-            "scale": {
-                "type": "log"
-            },
+            "title": "Relative Score (0–100)",
             "axis": {
                 "grid": false
             }
         },
         "color": {
             "condition": {
-                "param": "brush",
-                "field": "percent_protected",
-                "type": "quantitative",
+                "param": "state_hover",
+                "field": "state",
+                "type": "nominal",
                 "scale": {
-                    "scheme": "greens"
+                    "domain": [
+                        "ACT",
+                        "NSW",
+                        "NT",
+                        "QLD",
+                        "SA",
+                        "TAS",
+                        "VIC",
+                        "WA"
+                    ],
+                    "range": [
+                        "#1a4a2e",
+                        "#2d6a3e",
+                        "#3d8a50",
+                        "#4da062",
+                        "#66bb6a",
+                        "#81c784",
+                        "#a5d6a7",
+                        "#c8e6c9"
+                    ]
                 },
-                "title": "% Protected"
+                "legend": {
+                    "title": "State"
+                }
             },
-            "value": "#e0e0e0"
+            "value": "#c8b898"
         },
-        "size": {
-            "field": "number_of_parks",
-            "type": "quantitative",
-            "title": "Number of Parks"
+        "detail": {
+            "field": "state"
         },
         "opacity": {
             "condition": {
-                "param": "brush",
+                "param": "state_hover",
                 "value": 1
             },
             "value": 0.2
@@ -71,25 +129,25 @@
                 "title": "State"
             },
             {
-                "field": "percent_protected",
-                "title": "% Protected",
-                "format": ".2f"
+                "field": "metric",
+                "title": "Metric"
             },
             {
-                "field": "number_of_parks",
-                "title": "Number of Parks",
-                "format": ","
-            },
-            {
-                "field": "protected_area_ha",
-                "title": "Protected Area (ha)",
-                "format": ","
+                "field": "value",
+                "title": "Score",
+                "format": ".1f"
             }
         ]
     },
     "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }
