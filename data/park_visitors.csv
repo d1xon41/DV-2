@@ -1,19 +1,85 @@
-park,year,visitors
-Kakadu National Park,2018,229000
-Kakadu National Park,2019,218000
-Kakadu National Park,2020,98000
-Kakadu National Park,2021,112000
-Kakadu National Park,2022,195000
-Kakadu National Park,2023,220000
-Uluru-Kata Tjuta National Park,2018,395000
-Uluru-Kata Tjuta National Park,2019,381000
-Uluru-Kata Tjuta National Park,2020,89000
-Uluru-Kata Tjuta National Park,2021,103000
-Uluru-Kata Tjuta National Park,2022,298000
-Uluru-Kata Tjuta National Park,2023,356000
-Blue Mountains National Park,2018,3200000
-Blue Mountains National Park,2019,3100000
-Blue Mountains National Park,2020,1800000
-Blue Mountains National Park,2021,2100000
-Blue Mountains National Park,2022,2900000
-Blue Mountains National Park,2023,3000000
+park,year,visitors,state
+Kakadu National Park,2010,180000,NT
+Kakadu National Park,2011,195000,NT
+Kakadu National Park,2012,210000,NT
+Kakadu National Park,2013,205000,NT
+Kakadu National Park,2014,218000,NT
+Kakadu National Park,2015,225000,NT
+Kakadu National Park,2016,231000,NT
+Kakadu National Park,2017,228000,NT
+Kakadu National Park,2018,229000,NT
+Kakadu National Park,2019,218000,NT
+Kakadu National Park,2020,98000,NT
+Kakadu National Park,2021,112000,NT
+Kakadu National Park,2022,195000,NT
+Kakadu National Park,2023,220000,NT
+Uluru-Kata Tjuta National Park,2010,280000,NT
+Uluru-Kata Tjuta National Park,2011,295000,NT
+Uluru-Kata Tjuta National Park,2012,310000,NT
+Uluru-Kata Tjuta National Park,2013,320000,NT
+Uluru-Kata Tjuta National Park,2014,340000,NT
+Uluru-Kata Tjuta National Park,2015,360000,NT
+Uluru-Kata Tjuta National Park,2016,375000,NT
+Uluru-Kata Tjuta National Park,2017,385000,NT
+Uluru-Kata Tjuta National Park,2018,395000,NT
+Uluru-Kata Tjuta National Park,2019,381000,NT
+Uluru-Kata Tjuta National Park,2020,89000,NT
+Uluru-Kata Tjuta National Park,2021,103000,NT
+Uluru-Kata Tjuta National Park,2022,298000,NT
+Uluru-Kata Tjuta National Park,2023,356000,NT
+Blue Mountains National Park,2010,2800000,NSW
+Blue Mountains National Park,2011,2900000,NSW
+Blue Mountains National Park,2012,2950000,NSW
+Blue Mountains National Park,2013,3000000,NSW
+Blue Mountains National Park,2014,3050000,NSW
+Blue Mountains National Park,2015,3100000,NSW
+Blue Mountains National Park,2016,3150000,NSW
+Blue Mountains National Park,2017,3180000,NSW
+Blue Mountains National Park,2018,3200000,NSW
+Blue Mountains National Park,2019,3100000,NSW
+Blue Mountains National Park,2020,1800000,NSW
+Blue Mountains National Park,2021,2100000,NSW
+Blue Mountains National Park,2022,2900000,NSW
+Blue Mountains National Park,2023,3000000,NSW
+Daintree National Park,2010,450000,QLD
+Daintree National Park,2011,470000,QLD
+Daintree National Park,2012,490000,QLD
+Daintree National Park,2013,510000,QLD
+Daintree National Park,2014,530000,QLD
+Daintree National Park,2015,550000,QLD
+Daintree National Park,2016,570000,QLD
+Daintree National Park,2017,580000,QLD
+Daintree National Park,2018,590000,QLD
+Daintree National Park,2019,575000,QLD
+Daintree National Park,2020,210000,QLD
+Daintree National Park,2021,280000,QLD
+Daintree National Park,2022,490000,QLD
+Daintree National Park,2023,540000,QLD
+Cradle Mountain National Park,2010,280000,TAS
+Cradle Mountain National Park,2011,295000,TAS
+Cradle Mountain National Park,2012,310000,TAS
+Cradle Mountain National Park,2013,320000,TAS
+Cradle Mountain National Park,2014,335000,TAS
+Cradle Mountain National Park,2015,350000,TAS
+Cradle Mountain National Park,2016,365000,TAS
+Cradle Mountain National Park,2017,380000,TAS
+Cradle Mountain National Park,2018,390000,TAS
+Cradle Mountain National Park,2019,385000,TAS
+Cradle Mountain National Park,2020,180000,TAS
+Cradle Mountain National Park,2021,240000,TAS
+Cradle Mountain National Park,2022,350000,TAS
+Cradle Mountain National Park,2023,375000,TAS
+Grampians National Park,2010,750000,VIC
+Grampians National Park,2011,780000,VIC
+Grampians National Park,2012,800000,VIC
+Grampians National Park,2013,820000,VIC
+Grampians National Park,2014,840000,VIC
+Grampians National Park,2015,860000,VIC
+Grampians National Park,2016,880000,VIC
+Grampians National Park,2017,900000,VIC
+Grampians National Park,2018,920000,VIC
+Grampians National Park,2019,910000,VIC
+Grampians National Park,2020,390000,VIC
+Grampians National Park,2021,520000,VIC
+Grampians National Park,2022,800000,VIC
+Grampians National Park,2023,870000,VIC

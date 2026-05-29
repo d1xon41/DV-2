@@ -1,81 +1,79 @@
 {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 350,
+    "height": 280,
     "data": {
         "url": "data/iucn_by_state.csv"
     },
-    "facet": {
-        "field": "state",
-        "type": "nominal",
-        "title": "IUCN Category Breakdown by State",
-        "columns": 4
-    },
-    "spec": {
-        "width": 120,
-        "height": 100,
-        "params": [
-            {
-                "name": "hover_multiples_iucn",
-                "select": {
-                    "type": "point",
-                    "on": "mouseover",
-                    "fields": [
-                        "iucn_category"
-                    ]
-                }
+    "params": [
+        {
+            "name": "cell_select",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "state",
+                    "iucn_category"
+                ]
             }
-        ],
-        "mark": {
-            "type": "bar",
-            "cursor": "pointer"
+        }
+    ],
+    "mark": {
+        "type": "rect",
+        "cursor": "pointer",
+        "cornerRadius": 4
+    },
+    "encoding": {
+        "x": {
+            "field": "iucn_category",
+            "type": "ordinal",
+            "title": "IUCN Category",
+            "axis": {
+                "labelAngle": 0
+            }
         },
-        "encoding": {
-            "x": {
-                "field": "iucn_category",
-                "type": "nominal",
-                "title": null,
-                "axis": {
-                    "labelAngle": 0
-                }
-            },
-            "y": {
+        "y": {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+        },
+        "color": {
+            "condition": {
+                "param": "cell_select",
                 "field": "number_of_parks",
                 "type": "quantitative",
-                "title": "Parks"
-            },
-            "color": {
-                "field": "iucn_category",
-                "type": "nominal",
                 "scale": {
                     "scheme": "greens"
                 },
-                "legend": null
+                "title": "Number of Parks"
             },
-            "opacity": {
-                "condition": {
-                    "param": "hover_multiples_iucn",
-                    "value": 1
-                },
-                "value": 0.4
+            "value": "#f0f0f0"
+        },
+        "opacity": {
+            "condition": {
+                "param": "cell_select",
+                "value": 1
             },
-            "tooltip": [
-                {
-                    "field": "state",
-                    "title": "State"
-                },
-                {
-                    "field": "iucn_category",
-                    "title": "IUCN Category"
-                },
-                {
-                    "field": "number_of_parks",
-                    "title": "Number of Parks",
-                    "format": ","
-                }
-            ]
-        }
+            "value": 0.4
+        },
+        "tooltip": [
+            {
+                "field": "state",
+                "title": "State"
+            },
+            {
+                "field": "iucn_category",
+                "title": "IUCN Category"
+            },
+            {
+                "field": "number_of_parks",
+                "title": "Number of Parks",
+                "format": ","
+            }
+        ]
     },
     "config": {
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }

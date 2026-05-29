@@ -1,4 +1,5 @@
 {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 450,
     "height": 300,
     "data": {
@@ -31,11 +32,8 @@
         }
     ],
     "mark": {
-        "type": "line",
-        "point": {
-            "filled": true,
-            "size": 80
-        }
+        "type": "area",
+        "interpolate": "monotone"
     },
     "encoding": {
         "x": {
@@ -49,9 +47,12 @@
         "y": {
             "field": "extinctions",
             "type": "quantitative",
-            "title": "Number of Extinctions",
+            "title": "Extinctions",
+            "stack": "center",
             "axis": {
-                "grid": false
+                "grid": false,
+                "labels": false,
+                "title": null
             }
         },
         "color": {
@@ -76,9 +77,9 @@
         "opacity": {
             "condition": {
                 "param": "group_select",
-                "value": 1
+                "value": 0.9
             },
-            "value": 0.15
+            "value": 0.2
         },
         "tooltip": [
             {
@@ -97,7 +98,7 @@
     },
     "config": {
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }

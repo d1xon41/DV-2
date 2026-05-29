@@ -1,89 +1,112 @@
 {
-    "width": 400,
-    "height": 400,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 350,
+    "height": 300,
     "data": {
-        "url": "data/parks_by_bioregion.csv"
+        "url": "data/land_use.csv"
     },
-    "layer": [
+    "transform": [
         {
-            "mark": "rule",
-            "encoding": {
-                "y": {
-                    "field": "bioregion",
-                    "type": "nominal",
-                    "sort": "-x",
-                    "title": "Bioregion"
-                },
-                "x": {
-                    "field": "area_protected_ha",
-                    "type": "quantitative",
-                    "title": "Protected Area (ha)",
-                    "axis": {
-                        "grid": false
-                    }
-                },
-                "x2": {
-                    "datum": 0
-                },
-                "color": {
-                    "value": "#c8e6c9"
+            "window": [
+                {
+                    "op": "sum",
+                    "field": "percentage",
+                    "as": "running_total"
                 }
-            }
+            ]
         },
         {
-            "mark": {
+            "window": [
+                {
+                    "op": "lead",
+                    "field": "land_use",
+                    "as": "next_land_use"
+                }
+            ]
+        },
+        {
+            "calculate": "datum.running_total - datum.percentage",
+            "as": "previous_total"
+        }
+    ],
+    "params": [
+        {
+            "name": "segment_hover",
+            "select": {
                 "type": "point",
-                "filled": true,
-                "size": 100
-            },
-            "encoding": {
-                "y": {
-                    "field": "bioregion",
-                    "type": "nominal",
-                    "sort": "-x"
-                },
-                "x": {
-                    "field": "area_protected_ha",
-                    "type": "quantitative"
-                },
-                "color": {
-                    "field": "percent_protected",
-                    "type": "quantitative",
-                    "scale": {
-                        "scheme": "greens"
-                    },
-                    "title": "% Protected"
-                },
-                "size": {
-                    "value": 100
-                },
-                "tooltip": [
-                    {
-                        "field": "bioregion",
-                        "title": "Bioregion"
-                    },
-                    {
-                        "field": "area_protected_ha",
-                        "title": "Protected Area (ha)",
-                        "format": ","
-                    },
-                    {
-                        "field": "percent_protected",
-                        "title": "% Protected",
-                        "format": ".2f"
-                    },
-                    {
-                        "field": "ibra_area_ha",
-                        "title": "Total Bioregion Area (ha)",
-                        "format": ","
-                    }
+                "on": "mouseover",
+                "fields": [
+                    "land_use"
                 ]
             }
         }
     ],
+    "mark": {
+        "type": "bar",
+        "cursor": "pointer"
+    },
+    "encoding": {
+        "x": {
+            "field": "previous_total",
+            "type": "quantitative",
+            "title": "Cumulative % of Australia",
+            "axis": {
+                "grid": false
+            }
+        },
+        "x2": {
+            "field": "running_total"
+        },
+        "y": {
+            "field": "area_million_ha",
+            "type": "quantitative",
+            "title": "Area (million ha)",
+            "axis": {
+                "grid": false
+            }
+        },
+        "color": {
+            "field": "land_use",
+            "type": "nominal",
+            "title": "Land Use",
+            "scale": {
+                "range": [
+                    "#1a4a2e",
+                    "#4caf50",
+                    "#81c784",
+                    "#a5d6a7",
+                    "#c8e6c9",
+                    "#e8f5e9"
+                ]
+            }
+        },
+        "opacity": {
+            "condition": {
+                "param": "segment_hover",
+                "value": 1
+            },
+            "value": 0.5
+        },
+        "tooltip": [
+            {
+                "field": "land_use",
+                "title": "Land Use"
+            },
+            {
+                "field": "area_million_ha",
+                "title": "Area (million ha)",
+                "format": ".1f"
+            },
+            {
+                "field": "percentage",
+                "title": "% of Australia",
+                "format": ".1f"
+            }
+        ]
+    },
     "config": {
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }

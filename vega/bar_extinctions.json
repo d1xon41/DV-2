@@ -1,6 +1,7 @@
 {
-    "width": 400,
-    "height": 300,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 350,
+    "height": 350,
     "data": {
         "url": "data/extinctions.csv"
     },
@@ -41,57 +42,71 @@
             }
         }
     ],
-    "mark": {
-        "type": "arc",
-        "innerRadius": 60,
-        "outerRadius": 140,
-        "cursor": "pointer"
-    },
-    "encoding": {
-        "theta": {
-            "field": "total",
-            "type": "quantitative"
-        },
-        "color": {
-            "field": "group",
-            "type": "nominal",
-            "title": "Animal Group",
-            "scale": {
-                "domain": [
-                    "mammals",
-                    "birds",
-                    "reptiles",
-                    "frogs"
-                ],
-                "range": [
-                    "#1a4a2e",
-                    "#2d7a3a",
-                    "#66bb6a",
-                    "#a5d6a7"
+    "layer": [
+        {
+            "mark": {
+                "type": "arc",
+                "innerRadius": 20,
+                "stroke": "#ffffff",
+                "strokeWidth": 2,
+                "cursor": "pointer"
+            },
+            "encoding": {
+                "theta": {
+                    "field": "total",
+                    "type": "quantitative",
+                    "stack": true
+                },
+                "radius": {
+                    "field": "total",
+                    "type": "quantitative",
+                    "scale": {
+                        "rangeMin": 60,
+                        "rangeMax": 160
+                    }
+                },
+                "color": {
+                    "field": "group",
+                    "type": "nominal",
+                    "title": "Animal Group",
+                    "scale": {
+                        "domain": [
+                            "mammals",
+                            "birds",
+                            "reptiles",
+                            "frogs"
+                        ],
+                        "range": [
+                            "#1a4a2e",
+                            "#2d7a3a",
+                            "#66bb6a",
+                            "#a5d6a7"
+                        ]
+                    }
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "group_select",
+                        "value": 1
+                    },
+                    "value": 0.3
+                },
+                "tooltip": [
+                    {
+                        "field": "group",
+                        "title": "Animal Group"
+                    },
+                    {
+                        "field": "total",
+                        "title": "Total Extinctions Since 1800s"
+                    }
                 ]
             }
-        },
-        "opacity": {
-            "condition": {
-                "param": "group_select",
-                "value": 1
-            },
-            "value": 0.3
-        },
-        "tooltip": [
-            {
-                "field": "group",
-                "title": "Animal Group"
-            },
-            {
-                "field": "total",
-                "title": "Total Extinctions Since 1800s"
-            }
-        ]
-    },
+        }
+    ],
     "config": {
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }

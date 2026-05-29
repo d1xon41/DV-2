@@ -1,32 +1,68 @@
 {
-    "width": 400,
-    "height": 300,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 300,
+    "height": 350,
     "data": {
-        "url": "data/parks_by_jurisdiction.csv"
+        "url": "data/protection_slope.csv"
     },
+    "params": [
+        {
+            "name": "state_hover",
+            "select": {
+                "type": "point",
+                "on": "mouseover",
+                "fields": [
+                    "state"
+                ]
+            }
+        }
+    ],
     "layer": [
         {
-            "mark": "rule",
+            "mark": "line",
             "encoding": {
-                "y": {
-                    "field": "state",
-                    "type": "nominal",
-                    "sort": "-x",
-                    "title": "State"
-                },
                 "x": {
-                    "field": "percent_protected",
-                    "type": "quantitative",
-                    "title": "% of State Land Protected",
+                    "field": "year",
+                    "type": "ordinal",
+                    "title": null,
                     "axis": {
                         "grid": false
                     }
                 },
-                "x2": {
-                    "datum": 0
+                "y": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "title": "% Land Protected",
+                    "axis": {
+                        "grid": false
+                    }
+                },
+                "detail": {
+                    "field": "state",
+                    "type": "nominal"
                 },
                 "color": {
-                    "value": "#a5d6a7"
+                    "condition": {
+                        "param": "state_hover",
+                        "field": "state",
+                        "type": "nominal",
+                        "legend": null
+                    },
+                    "value": "#c8e6c9"
+                },
+                "size": {
+                    "condition": {
+                        "param": "state_hover",
+                        "value": 3
+                    },
+                    "value": 1.5
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "state_hover",
+                        "value": 1
+                    },
+                    "value": 0.4
                 }
             }
         },
@@ -34,28 +70,32 @@
             "mark": {
                 "type": "point",
                 "filled": true,
-                "size": 150
+                "size": 80
             },
             "encoding": {
-                "y": {
-                    "field": "state",
-                    "type": "nominal",
-                    "sort": "-x"
-                },
                 "x": {
+                    "field": "year",
+                    "type": "ordinal"
+                },
+                "y": {
                     "field": "percent_protected",
                     "type": "quantitative"
                 },
                 "color": {
-                    "field": "percent_protected",
-                    "type": "quantitative",
-                    "scale": {
-                        "scheme": "greens"
+                    "condition": {
+                        "param": "state_hover",
+                        "field": "state",
+                        "type": "nominal",
+                        "legend": null
                     },
-                    "legend": null
+                    "value": "#c8e6c9"
                 },
-                "size": {
-                    "value": 150
+                "opacity": {
+                    "condition": {
+                        "param": "state_hover",
+                        "value": 1
+                    },
+                    "value": 0.4
                 },
                 "tooltip": [
                     {
@@ -63,22 +103,64 @@
                         "title": "State"
                     },
                     {
+                        "field": "year",
+                        "title": "Year"
+                    },
+                    {
                         "field": "percent_protected",
                         "title": "% Protected",
                         "format": ".2f"
-                    },
-                    {
-                        "field": "number_of_parks",
-                        "title": "Number of Parks",
-                        "format": ","
                     }
                 ]
+            }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 6,
+                "fontSize": 11
+            },
+            "transform": [
+                {
+                    "filter": "datum.year == 2020"
+                }
+            ],
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "ordinal"
+                },
+                "y": {
+                    "field": "percent_protected",
+                    "type": "quantitative"
+                },
+                "text": {
+                    "field": "state",
+                    "type": "nominal"
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "state_hover",
+                        "value": 1
+                    },
+                    "value": 0.3
+                },
+                "color": {
+                    "condition": {
+                        "param": "state_hover",
+                        "field": "state",
+                        "type": "nominal",
+                        "legend": null
+                    },
+                    "value": "#aaa"
+                }
             }
         }
     ],
     "config": {
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }
