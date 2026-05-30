@@ -111,6 +111,100 @@
                     }
                 ]
             }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "lon": 150.5,
+                        "lat": -35.8,
+                        "label": "ACT: 55.9%",
+                        "sub": "Most protected state"
+                    },
+                    {
+                        "lon": 153.5,
+                        "lat": -30.5,
+                        "label": "NSW: 10.4%",
+                        "sub": "Most biodiverse, least protected"
+                    },
+                    {
+                        "lon": 116.0,
+                        "lat": -22.0,
+                        "label": "WA: 78.7M ha",
+                        "sub": "Largest total protected area"
+                    }
+                ]
+            },
+            "layer": [
+                {
+                    "mark": {
+                        "type": "text",
+                        "fontSize": 11,
+                        "fontWeight": "bold",
+                        "color": "#1a1208",
+                        "align": "left",
+                        "dy": -6
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "lon",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "lat",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "label",
+                            "type": "nominal"
+                        }
+                    }
+                },
+                {
+                    "mark": {
+                        "type": "text",
+                        "fontSize": 9,
+                        "fontStyle": "italic",
+                        "color": "#3d3020",
+                        "align": "left",
+                        "dy": 8
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "lon",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "lat",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "sub",
+                            "type": "nominal"
+                        }
+                    }
+                },
+                {
+                    "mark": {
+                        "type": "point",
+                        "shape": "triangle-right",
+                        "size": 80,
+                        "color": "#1a4a2e",
+                        "filled": true,
+                        "dx": -12
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "lon",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "lat",
+                            "type": "quantitative"
+                        }
+                    }
+                }
+            ]
         }
     ],
     "config": {

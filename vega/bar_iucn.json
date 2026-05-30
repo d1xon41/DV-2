@@ -1,12 +1,38 @@
 {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 400,
-    "height": 300,
+    "height": 280,
+    "background": "#ede3cc",
     "data": {
         "url": "data/parks_by_iucn.csv"
     },
+    "transform": [
+        {
+            "calculate": "datum.number_of_parks / 6406 * 100",
+            "as": "parks_norm"
+        },
+        {
+            "calculate": "datum.area_ha / 99937978 * 100",
+            "as": "area_norm"
+        },
+        {
+            "fold": [
+                "parks_norm",
+                "area_norm"
+            ],
+            "as": [
+                "metric_key",
+                "norm_value"
+            ]
+        },
+        {
+            "calculate": "datum.metric_key === 'parks_norm' ? 'Number of Parks' : 'Area (ha)'",
+            "as": "metric_label"
+        }
+    ],
     "params": [
         {
-            "name": "category_select",
+            "name": "iucn_select",
             "select": {
                 "type": "point",
                 "fields": [
@@ -15,81 +41,132 @@
             }
         }
     ],
-    "mark": {
-        "type": "circle",
-        "cursor": "pointer"
-    },
-    "encoding": {
-        "x": {
-            "field": "iucn_category",
-            "type": "nominal",
-            "title": "IUCN Category",
-            "axis": {
-                "grid": false
+    "layer": [
+        {
+            "mark": "line",
+            "encoding": {
+                "x": {
+                    "field": "norm_value",
+                    "type": "quantitative",
+                    "title": "Relative Scale (0–100)",
+                    "axis": {
+                        "grid": false,
+                        "labelColor": "#3d3020",
+                        "titleColor": "#3d3020"
+                    }
+                },
+                "y": {
+                    "field": "iucn_category",
+                    "type": "ordinal",
+                    "title": "IUCN Category",
+                    "sort": [
+                        "Ia",
+                        "Ib",
+                        "II",
+                        "III",
+                        "IV",
+                        "V",
+                        "VI"
+                    ],
+                    "axis": {
+                        "labelColor": "#3d3020",
+                        "titleColor": "#3d3020"
+                    }
+                },
+                "detail": {
+                    "field": "iucn_category"
+                },
+                "color": {
+                    "value": "#c8b898"
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "iucn_select",
+                        "value": 1
+                    },
+                    "value": 0.25
+                }
             }
         },
-        "y": {
-            "field": "number_of_parks",
-            "type": "quantitative",
-            "title": "Number of Protected Areas",
-            "axis": {
-                "grid": false
-            }
-        },
-        "size": {
-            "field": "area_ha",
-            "type": "quantitative",
-            "title": "Area (ha)",
-            "scale": {
-                "range": [
-                    100,
-                    5000
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 120,
+                "cursor": "pointer"
+            },
+            "encoding": {
+                "x": {
+                    "field": "norm_value",
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "iucn_category",
+                    "type": "ordinal",
+                    "sort": [
+                        "Ia",
+                        "Ib",
+                        "II",
+                        "III",
+                        "IV",
+                        "V",
+                        "VI"
+                    ]
+                },
+                "color": {
+                    "field": "metric_label",
+                    "type": "nominal",
+                    "title": "Metric",
+                    "scale": {
+                        "domain": [
+                            "Number of Parks",
+                            "Area (ha)"
+                        ],
+                        "range": [
+                            "#1a4a2e",
+                            "#c9a227"
+                        ]
+                    }
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "iucn_select",
+                        "value": 1
+                    },
+                    "value": 0.2
+                },
+                "tooltip": [
+                    {
+                        "field": "iucn_category",
+                        "title": "IUCN Category"
+                    },
+                    {
+                        "field": "metric_label",
+                        "title": "Metric"
+                    },
+                    {
+                        "field": "norm_value",
+                        "title": "Relative Score",
+                        "format": ".1f"
+                    }
                 ]
             }
-        },
-        "color": {
-            "condition": {
-                "param": "category_select",
-                "field": "contribution_to_nrs",
-                "type": "quantitative",
-                "scale": {
-                    "scheme": "greens"
-                },
-                "title": "% Contribution to NRS"
-            },
-            "value": "#e0e0e0"
-        },
-        "opacity": {
-            "condition": {
-                "param": "category_select",
-                "value": 1
-            },
-            "value": 0.3
-        },
-        "tooltip": [
-            {
-                "field": "iucn_category",
-                "title": "IUCN Category"
-            },
-            {
-                "field": "number_of_parks",
-                "title": "Number of Parks",
-                "format": ","
-            },
-            {
-                "field": "area_ha",
-                "title": "Area (ha)",
-                "format": ","
-            },
-            {
-                "field": "contribution_to_nrs",
-                "title": "% Contribution to NRS"
-            }
-        ]
-    },
+        }
+    ],
     "config": {
+        "background": "#ede3cc",
+        "axis": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "gridColor": "#d4c9a8"
+        },
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }

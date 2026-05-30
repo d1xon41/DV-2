@@ -145,6 +145,100 @@
                     "value": "#3d3020"
                 }
             }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "lon": 135.0,
+                        "lat": -23.5,
+                        "callout": "30 by 30 TARGET",
+                        "detail": "Australia needs 30% protected by 2030"
+                    },
+                    {
+                        "lon": 151.5,
+                        "lat": -42.5,
+                        "callout": "WORST MAMMAL LOSS",
+                        "detail": "TAS: last refuge for many species"
+                    },
+                    {
+                        "lon": 145.5,
+                        "lat": -16.5,
+                        "callout": "DAINTREE",
+                        "detail": "World's oldest tropical rainforest"
+                    }
+                ]
+            },
+            "layer": [
+                {
+                    "mark": {
+                        "type": "rect",
+                        "color": "#1a4a2e",
+                        "cornerRadius": 3,
+                        "opacity": 0.85,
+                        "width": 160,
+                        "height": 32
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "lon",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "lat",
+                            "type": "quantitative"
+                        }
+                    }
+                },
+                {
+                    "mark": {
+                        "type": "text",
+                        "fontSize": 9,
+                        "fontWeight": "bold",
+                        "color": "#a5d6a7",
+                        "align": "center",
+                        "dy": -6
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "lon",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "lat",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "callout",
+                            "type": "nominal"
+                        }
+                    }
+                },
+                {
+                    "mark": {
+                        "type": "text",
+                        "fontSize": 8,
+                        "fontStyle": "italic",
+                        "color": "#c8e6c9",
+                        "align": "center",
+                        "dy": 7
+                    },
+                    "encoding": {
+                        "longitude": {
+                            "field": "lon",
+                            "type": "quantitative"
+                        },
+                        "latitude": {
+                            "field": "lat",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "detail",
+                            "type": "nominal"
+                        }
+                    }
+                }
+            ]
         }
     ],
     "config": {

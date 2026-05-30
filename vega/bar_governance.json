@@ -27,7 +27,7 @@
     "transform": [
         {
             "calculate": "gov_metric === 'area_ha' ? datum.area_ha : datum.number_of_parks",
-            "as": "metric_value"
+            "as": "gov_value"
         }
     ],
     "mark": {
@@ -39,7 +39,7 @@
     },
     "encoding": {
         "theta": {
-            "field": "metric_value",
+            "field": "gov_value",
             "type": "quantitative"
         },
         "color": {

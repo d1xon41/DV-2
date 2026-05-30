@@ -1,65 +1,19 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 350,
-    "height": 350,
+    "width": 320,
+    "height": 260,
     "background": "#ede3cc",
     "data": {
-        "url": "data/parks_by_jurisdiction.csv"
+        "url": "data/iucn_by_state.csv"
     },
     "params": [
         {
-            "name": "show_metric",
-            "value": "number_of_parks",
+            "name": "heatmap_state",
+            "value": "All",
             "bind": {
-                "input": "radio",
+                "input": "select",
                 "options": [
-                    "number_of_parks",
-                    "percent_protected"
-                ],
-                "labels": [
-                    "Number of Parks",
-                    "% Land Protected"
-                ],
-                "name": "Show: "
-            }
-        }
-    ],
-    "transform": [
-        {
-            "calculate": "1",
-            "as": "equal_sector"
-        },
-        {
-            "calculate": "show_metric === 'number_of_parks' ? datum.number_of_parks : datum.percent_protected",
-            "as": "selected_value"
-        }
-    ],
-    "mark": {
-        "type": "arc",
-        "innerRadius": 25,
-        "stroke": "#ede3cc",
-        "strokeWidth": 2,
-        "cursor": "pointer"
-    },
-    "encoding": {
-        "theta": {
-            "field": "equal_sector",
-            "type": "quantitative",
-            "stack": true
-        },
-        "radius": {
-            "field": "selected_value",
-            "type": "quantitative",
-            "scale": {
-                "rangeMin": 25,
-                "rangeMax": 155
-            }
-        },
-        "color": {
-            "field": "state",
-            "type": "nominal",
-            "scale": {
-                "domain": [
+                    "All",
                     "ACT",
                     "NSW",
                     "NT",
@@ -69,45 +23,94 @@
                     "VIC",
                     "WA"
                 ],
-                "range": [
-                    "#1a4a2e",
-                    "#2d6a3e",
-                    "#3d8a50",
-                    "#4da062",
-                    "#66bb6a",
-                    "#81c784",
-                    "#a5d6a7",
-                    "#c8e6c9"
-                ]
+                "labels": [
+                    "All States",
+                    "ACT",
+                    "NSW",
+                    "NT",
+                    "QLD",
+                    "SA",
+                    "TAS",
+                    "VIC",
+                    "WA"
+                ],
+                "name": "Compare State: "
+            }
+        }
+    ],
+    "transform": [
+        {
+            "filter": "heatmap_state === 'All' || datum.state === heatmap_state"
+        }
+    ],
+    "mark": {
+        "type": "rect",
+        "cursor": "pointer",
+        "stroke": "#ede3cc",
+        "strokeWidth": 2,
+        "cornerRadius": 3
+    },
+    "encoding": {
+        "x": {
+            "field": "iucn_category",
+            "type": "ordinal",
+            "title": "IUCN Category",
+            "axis": {
+                "labelAngle": 0,
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
+            }
+        },
+        "y": {
+            "field": "state",
+            "type": "nominal",
+            "title": "State",
+            "axis": {
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
+            }
+        },
+        "color": {
+            "field": "number_of_parks",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "greens"
             },
-            "title": "State"
+            "title": "Parks"
         },
         "tooltip": [
             {
-                "field": "state_name",
+                "field": "state",
                 "title": "State"
+            },
+            {
+                "field": "iucn_category",
+                "title": "IUCN Category"
             },
             {
                 "field": "number_of_parks",
                 "title": "Number of Parks",
                 "format": ","
-            },
-            {
-                "field": "percent_protected",
-                "title": "% Protected",
-                "format": ".2f"
             }
         ]
     },
     "config": {
         "background": "#ede3cc",
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "gridColor": "#d4c9a8"
+        },
         "legend": {
             "labelColor": "#3d3020",
             "titleColor": "#3d3020",
             "fillColor": "#ede3cc"
         },
         "transition": {
-            "duration": 500,
+            "duration": 400,
             "easing": "cubic-in-out"
         }
     }

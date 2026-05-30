@@ -27,28 +27,28 @@
     "transform": [
         {
             "calculate": "1",
-            "as": "equal_sector"
+            "as": "sector"
         },
         {
-            "calculate": "show_metric === 'number_of_parks' ? datum.number_of_parks : datum.percent_protected",
-            "as": "selected_value"
+            "calculate": "show_metric === 'number_of_parks' ? datum.number_of_parks : datum.percent_protected * 10",
+            "as": "petal_value"
         }
     ],
     "mark": {
         "type": "arc",
-        "innerRadius": 25,
+        "innerRadius": 20,
         "stroke": "#ede3cc",
         "strokeWidth": 2,
         "cursor": "pointer"
     },
     "encoding": {
         "theta": {
-            "field": "equal_sector",
+            "field": "sector",
             "type": "quantitative",
             "stack": true
         },
         "radius": {
-            "field": "selected_value",
+            "field": "petal_value",
             "type": "quantitative",
             "scale": {
                 "rangeMin": 25,

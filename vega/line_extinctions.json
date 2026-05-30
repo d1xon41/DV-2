@@ -22,7 +22,7 @@
     ],
     "params": [
         {
-            "name": "extinction_group",
+            "name": "stream_group",
             "select": {
                 "type": "point",
                 "fields": [
@@ -30,153 +30,74 @@
                 ]
             },
             "bind": "legend"
+        }
+    ],
+    "mark": {
+        "type": "area",
+        "interpolate": "monotone"
+    },
+    "encoding": {
+        "x": {
+            "field": "decade",
+            "type": "ordinal",
+            "title": "Decade",
+            "axis": {
+                "grid": false,
+                "labelColor": "#3d3020",
+                "titleColor": "#3d3020"
+            }
         },
-        {
-            "name": "decade_cursor",
-            "select": {
-                "type": "point",
-                "on": "mousemove",
-                "encodings": [
-                    "x"
+        "y": {
+            "field": "extinctions",
+            "type": "quantitative",
+            "stack": "center",
+            "axis": {
+                "grid": false,
+                "labels": false,
+                "title": null
+            }
+        },
+        "color": {
+            "field": "group",
+            "type": "nominal",
+            "title": "Animal Group",
+            "scale": {
+                "domain": [
+                    "mammals",
+                    "birds",
+                    "reptiles",
+                    "frogs"
                 ],
-                "clear": "mouseout"
-            }
-        }
-    ],
-    "layer": [
-        {
-            "mark": {
-                "type": "area",
-                "interpolate": "monotone"
-            },
-            "encoding": {
-                "x": {
-                    "field": "decade",
-                    "type": "ordinal",
-                    "title": "Decade",
-                    "axis": {
-                        "grid": false,
-                        "labelColor": "#3d3020",
-                        "titleColor": "#3d3020"
-                    }
-                },
-                "y": {
-                    "field": "extinctions",
-                    "type": "quantitative",
-                    "stack": "center",
-                    "axis": {
-                        "grid": false,
-                        "labels": false,
-                        "title": null
-                    }
-                },
-                "color": {
-                    "field": "group",
-                    "type": "nominal",
-                    "title": "Animal Group",
-                    "scale": {
-                        "domain": [
-                            "mammals",
-                            "birds",
-                            "reptiles",
-                            "frogs"
-                        ],
-                        "range": [
-                            "#1a4a2e",
-                            "#2d7a3a",
-                            "#66bb6a",
-                            "#a5d6a7"
-                        ]
-                    }
-                },
-                "opacity": {
-                    "condition": {
-                        "param": "extinction_group",
-                        "value": 0.9
-                    },
-                    "value": 0.15
-                },
-                "tooltip": [
-                    {
-                        "field": "decade",
-                        "title": "Decade"
-                    },
-                    {
-                        "field": "group",
-                        "title": "Group"
-                    },
-                    {
-                        "field": "extinctions",
-                        "title": "Extinctions"
-                    }
+                "range": [
+                    "#1a4a2e",
+                    "#2d7a3a",
+                    "#66bb6a",
+                    "#a5d6a7"
                 ]
             }
         },
-        {
-            "transform": [
-                {
-                    "filter": {
-                        "param": "decade_cursor",
-                        "empty": false
-                    }
-                }
-            ],
-            "mark": {
-                "type": "rule",
-                "color": "#3d3020",
-                "strokeWidth": 1.5,
-                "strokeDash": [
-                    4,
-                    2
-                ]
+        "opacity": {
+            "condition": {
+                "param": "stream_group",
+                "value": 0.9
             },
-            "encoding": {
-                "x": {
-                    "field": "decade",
-                    "type": "ordinal"
-                }
-            }
+            "value": 0.15
         },
-        {
-            "transform": [
-                {
-                    "filter": {
-                        "param": "decade_cursor",
-                        "empty": false
-                    }
-                },
-                {
-                    "aggregate": [
-                        {
-                            "op": "sum",
-                            "field": "extinctions",
-                            "as": "decade_total"
-                        }
-                    ],
-                    "groupby": [
-                        "decade"
-                    ]
-                }
-            ],
-            "mark": {
-                "type": "text",
-                "dy": -130,
-                "fontSize": 12,
-                "fontWeight": "bold",
-                "color": "#1a1208"
+        "tooltip": [
+            {
+                "field": "decade",
+                "title": "Decade"
             },
-            "encoding": {
-                "x": {
-                    "field": "decade",
-                    "type": "ordinal"
-                },
-                "text": {
-                    "field": "decade_total",
-                    "type": "quantitative"
-                }
+            {
+                "field": "group",
+                "title": "Group"
+            },
+            {
+                "field": "extinctions",
+                "title": "Extinctions"
             }
-        }
-    ],
+        ]
+    },
     "config": {
         "background": "#ede3cc",
         "axis": {
