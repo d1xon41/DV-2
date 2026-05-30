@@ -5,80 +5,31 @@
     "background": "#ede3cc",
     "params": [
         {
-            "name": "zoom_level",
-            "value": 800,
+            "name": "spike_metric",
+            "value": "number_of_parks",
             "bind": {
-                "input": "range",
-                "min": 400,
-                "max": 2500,
-                "step": 50,
-                "name": "Zoom: "
-            }
-        },
-        {
-            "name": "center_to",
-            "value": [
-                133,
-                -27
-            ],
-            "bind": {
-                "input": "select",
+                "input": "radio",
                 "options": [
-                    [
-                        133,
-                        -27
-                    ],
-                    [
-                        151,
-                        -33
-                    ],
-                    [
-                        144,
-                        -37
-                    ],
-                    [
-                        115,
-                        -31
-                    ],
-                    [
-                        153,
-                        -27
-                    ],
-                    [
-                        147,
-                        -42
-                    ],
-                    [
-                        138,
-                        -34
-                    ],
-                    [
-                        130,
-                        -19
-                    ]
+                    "number_of_parks",
+                    "percent_protected",
+                    "protected_area_ha"
                 ],
                 "labels": [
-                    "All Australia",
-                    "Sydney / NSW",
-                    "Melbourne / VIC",
-                    "Perth / WA",
-                    "Brisbane / QLD",
-                    "Hobart / TAS",
-                    "Adelaide / SA",
-                    "Darwin / NT"
+                    "Number of Parks",
+                    "% Land Protected",
+                    "Protected Area (ha)"
                 ],
-                "name": "Map Centre: "
+                "name": "Spike height shows: "
             }
         }
     ],
     "projection": {
         "type": "mercator",
-        "center": {
-            "expr": "center_to"
-        },
-        "scale": {
-            "expr": "zoom_level"
-        }
+        "center": [
+            133,
+            -27
+        ],
+        "scale": 800
     },
     "layer": [
         {
@@ -96,10 +47,20 @@
             "data": {
                 "url": "data/state_centroids.csv"
             },
+            "transform": [
+                {
+                    "calculate": "spike_metric === 'number_of_parks' ? datum.number_of_parks : spike_metric === 'percent_protected' ? datum.percent_protected : datum.protected_area_ha",
+                    "as": "spike_value"
+                },
+                {
+                    "calculate": "spike_metric === 'number_of_parks' ? datum.latitude + (datum.number_of_parks / 4709) * 8 : spike_metric === 'percent_protected' ? datum.latitude + (datum.percent_protected / 55.93) * 8 : datum.latitude + (datum.protected_area_ha / 86000000) * 8",
+                    "as": "lat_tip_calc"
+                }
+            ],
             "mark": {
                 "type": "rule",
-                "strokeWidth": 14,
-                "strokeCap": "round"
+                "strokeCap": "round",
+                "strokeWidth": 12
             },
             "encoding": {
                 "longitude": {
@@ -110,17 +71,21 @@
                     "field": "latitude",
                     "type": "quantitative"
                 },
+                "longitude2": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
                 "latitude2": {
-                    "field": "latitude_tip",
+                    "field": "lat_tip_calc",
                     "type": "quantitative"
                 },
                 "color": {
-                    "field": "percent_protected",
+                    "field": "spike_value",
                     "type": "quantitative",
                     "scale": {
                         "scheme": "greens"
                     },
-                    "title": "% Protected"
+                    "title": "Value"
                 },
                 "tooltip": [
                     {
@@ -136,6 +101,11 @@
                         "field": "percent_protected",
                         "title": "% Land Protected",
                         "format": ".2f"
+                    },
+                    {
+                        "field": "protected_area_ha",
+                        "title": "Protected Area (ha)",
+                        "format": ","
                     }
                 ]
             }
@@ -144,10 +114,18 @@
             "data": {
                 "url": "data/state_centroids.csv"
             },
+            "transform": [
+                {
+                    "calculate": "spike_metric === 'number_of_parks' ? datum.latitude + (datum.number_of_parks / 4709) * 8 : spike_metric === 'percent_protected' ? datum.latitude + (datum.percent_protected / 55.93) * 8 : datum.latitude + (datum.protected_area_ha / 86000000) * 8",
+                    "as": "lat_tip_calc"
+                }
+            ],
             "mark": {
-                "type": "point",
-                "filled": true,
-                "size": 60
+                "type": "text",
+                "dy": -6,
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "color": "#1a1208"
             },
             "encoding": {
                 "longitude": {
@@ -155,15 +133,12 @@
                     "type": "quantitative"
                 },
                 "latitude": {
-                    "field": "latitude",
+                    "field": "lat_tip_calc",
                     "type": "quantitative"
                 },
-                "color": {
-                    "field": "percent_protected",
-                    "type": "quantitative",
-                    "scale": {
-                        "scheme": "greens"
-                    }
+                "text": {
+                    "field": "state",
+                    "type": "nominal"
                 }
             }
         }
@@ -176,7 +151,7 @@
             "fillColor": "#ede3cc"
         },
         "transition": {
-            "duration": 400,
+            "duration": 500,
             "easing": "cubic-in-out"
         }
     }

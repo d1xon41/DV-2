@@ -1,162 +1,119 @@
 {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 700,
     "height": 480,
+    "background": "#ede3cc",
     "params": [
         {
-            "name": "zoom_level",
-            "value": 800,
+            "name": "compare_mode",
+            "value": "absolute",
             "bind": {
-                "input": "range",
-                "min": 400,
-                "max": 2500,
-                "step": 50,
-                "name": "Zoom: "
-            }
-        },
-        {
-            "name": "center_to",
-            "value": [
-                133,
-                -27
-            ],
-            "bind": {
-                "input": "select",
+                "input": "radio",
                 "options": [
-                    [
-                        133,
-                        -27
-                    ],
-                    [
-                        151,
-                        -33
-                    ],
-                    [
-                        144,
-                        -37
-                    ],
-                    [
-                        115,
-                        -31
-                    ],
-                    [
-                        153,
-                        -27
-                    ],
-                    [
-                        147,
-                        -42
-                    ],
-                    [
-                        138,
-                        -34
-                    ],
-                    [
-                        130,
-                        -19
-                    ]
+                    "absolute",
+                    "relative"
                 ],
                 "labels": [
-                    "All Australia",
-                    "Sydney / NSW",
-                    "Melbourne / VIC",
-                    "Perth / WA",
-                    "Brisbane / QLD",
-                    "Hobart / TAS",
-                    "Adelaide / SA",
-                    "Darwin / NT"
+                    "Absolute count",
+                    "Above / below national average (22.6%)"
                 ],
-                "name": "Map Centre: "
-            }
-        },
-        {
-            "name": "state_select",
-            "select": {
-                "type": "point",
-                "fields": [
-                    "properties.STATE_NAME"
-                ]
+                "name": "View: "
             }
         }
     ],
     "projection": {
         "type": "mercator",
-        "center": {
-            "expr": "center_to"
-        },
-        "scale": {
-            "expr": "zoom_level"
-        }
+        "center": [
+            133,
+            -27
+        ],
+        "scale": 800
     },
-    "data": {
-        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
-        "format": {
-            "type": "json",
-            "property": "features"
-        }
-    },
-    "transform": [
+    "layer": [
         {
-            "lookup": "properties.STATE_NAME",
-            "from": {
-                "data": {
-                    "url": "data/parks_by_jurisdiction.csv"
+            "data": {
+                "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/refs/heads/master/states.geojson",
+                "format": {
+                    "type": "json",
+                    "property": "features"
+                }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.STATE_NAME",
+                    "from": {
+                        "data": {
+                            "url": "data/parks_by_jurisdiction.csv"
+                        },
+                        "key": "state_name",
+                        "fields": [
+                            "number_of_parks",
+                            "percent_protected",
+                            "state"
+                        ]
+                    }
                 },
-                "key": "state_name",
-                "fields": [
-                    "number_of_parks",
-                    "state",
-                    "percent_protected"
+                {
+                    "calculate": "compare_mode === 'absolute' ? datum.number_of_parks : datum.percent_protected - 22.6",
+                    "as": "display_value"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "#ffffff",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "color": {
+                    "field": "display_value",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": {
+                            "expr": "compare_mode === 'relative' ? 'redyellowgreen' : 'greens'"
+                        },
+                        "domainMid": {
+                            "expr": "compare_mode === 'relative' ? 0 : null"
+                        }
+                    },
+                    "title": {
+                        "expr": "compare_mode === 'absolute' ? 'Number of Parks' : 'Difference from 22.6% average'"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "properties.STATE_NAME",
+                        "type": "nominal",
+                        "title": "State"
+                    },
+                    {
+                        "field": "number_of_parks",
+                        "type": "quantitative",
+                        "title": "Number of Parks",
+                        "format": ","
+                    },
+                    {
+                        "field": "percent_protected",
+                        "type": "quantitative",
+                        "title": "% Protected",
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "display_value",
+                        "type": "quantitative",
+                        "title": "Displayed Value",
+                        "format": ".2f"
+                    }
                 ]
             }
         }
     ],
-    "mark": {
-        "type": "geoshape",
-        "stroke": "#ffffff",
-        "strokeWidth": 1,
-        "cursor": "pointer"
-    },
-    "encoding": {
-        "color": {
-            "condition": {
-                "param": "state_select",
-                "field": "number_of_parks",
-                "type": "quantitative",
-                "scale": {
-                    "scheme": "greens"
-                },
-                "title": "Number of Parks"
-            },
-            "value": "#e0e0e0"
-        },
-        "opacity": {
-            "condition": {
-                "param": "state_select",
-                "value": 1
-            },
-            "value": 0.4
-        },
-        "tooltip": [
-            {
-                "field": "properties.STATE_NAME",
-                "type": "nominal",
-                "title": "State"
-            },
-            {
-                "field": "number_of_parks",
-                "type": "quantitative",
-                "title": "Number of Parks",
-                "format": ","
-            },
-            {
-                "field": "percent_protected",
-                "type": "quantitative",
-                "title": "% Protected",
-                "format": ".2f"
-            }
-        ]
-    },
     "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
             "duration": 500,
             "easing": "cubic-in-out"

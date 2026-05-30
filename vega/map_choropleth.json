@@ -1,91 +1,37 @@
 {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 700,
     "height": 480,
+    "background": "#ede3cc",
     "params": [
         {
-            "name": "zoom_level",
-            "value": 800,
+            "name": "map_metric",
+            "value": "percent_protected",
             "bind": {
-                "input": "range",
-                "min": 400,
-                "max": 2500,
-                "step": 50,
-                "name": "Zoom: "
-            }
-        },
-        {
-            "name": "center_to",
-            "value": [
-                133,
-                -27
-            ],
-            "bind": {
-                "input": "select",
+                "input": "radio",
                 "options": [
-                    [
-                        133,
-                        -27
-                    ],
-                    [
-                        151,
-                        -33
-                    ],
-                    [
-                        144,
-                        -37
-                    ],
-                    [
-                        115,
-                        -31
-                    ],
-                    [
-                        153,
-                        -27
-                    ],
-                    [
-                        147,
-                        -42
-                    ],
-                    [
-                        138,
-                        -34
-                    ],
-                    [
-                        130,
-                        -19
-                    ]
+                    "percent_protected",
+                    "number_of_parks",
+                    "protected_area_ha",
+                    "contribution_to_nrs"
                 ],
                 "labels": [
-                    "All Australia",
-                    "Sydney / NSW",
-                    "Melbourne / VIC",
-                    "Perth / WA",
-                    "Brisbane / QLD",
-                    "Hobart / TAS",
-                    "Adelaide / SA",
-                    "Darwin / NT"
+                    "% Land Protected",
+                    "Number of Parks",
+                    "Protected Area (ha)",
+                    "% Contribution to NRS"
                 ],
-                "name": "Map Centre: "
-            }
-        },
-        {
-            "name": "state_highlight",
-            "select": {
-                "type": "point",
-                "fields": [
-                    "properties.STATE_NAME"
-                ]
+                "name": "Colour by: "
             }
         }
     ],
     "projection": {
         "type": "mercator",
-        "center": {
-            "expr": "center_to"
-        },
-        "scale": {
-            "expr": "zoom_level"
-        }
+        "center": [
+            133,
+            -27
+        ],
+        "scale": 800
     },
     "layer": [
         {
@@ -108,9 +54,14 @@
                             "percent_protected",
                             "number_of_parks",
                             "protected_area_ha",
-                            "jurisdiction_area_ha"
+                            "contribution_to_nrs",
+                            "state"
                         ]
                     }
+                },
+                {
+                    "calculate": "map_metric === 'percent_protected' ? datum.percent_protected : map_metric === 'number_of_parks' ? datum.number_of_parks : map_metric === 'protected_area_ha' ? datum.protected_area_ha : datum.contribution_to_nrs",
+                    "as": "selected_value"
                 }
             ],
             "mark": {
@@ -121,23 +72,12 @@
             },
             "encoding": {
                 "color": {
-                    "condition": {
-                        "param": "state_highlight",
-                        "field": "percent_protected",
-                        "type": "quantitative",
-                        "scale": {
-                            "scheme": "greens"
-                        },
-                        "title": "% Land Protected"
+                    "field": "selected_value",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
                     },
-                    "value": "#e0e0e0"
-                },
-                "opacity": {
-                    "condition": {
-                        "param": "state_highlight",
-                        "value": 1
-                    },
-                    "value": 0.4
+                    "title": "Selected Metric"
                 },
                 "tooltip": [
                     {
@@ -148,7 +88,7 @@
                     {
                         "field": "percent_protected",
                         "type": "quantitative",
-                        "title": "% Land Protected",
+                        "title": "% Protected",
                         "format": ".2f"
                     },
                     {
@@ -164,16 +104,22 @@
                         "format": ","
                     },
                     {
-                        "field": "jurisdiction_area_ha",
+                        "field": "contribution_to_nrs",
                         "type": "quantitative",
-                        "title": "Total State Area (ha)",
-                        "format": ","
+                        "title": "% Contribution to NRS",
+                        "format": ".2f"
                     }
                 ]
             }
         }
     ],
     "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
             "duration": 500,
             "easing": "cubic-in-out"

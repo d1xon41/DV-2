@@ -3,83 +3,25 @@
     "width": 700,
     "height": 480,
     "background": "#ede3cc",
+    "projection": {
+        "type": "mercator",
+        "center": [
+            133,
+            -27
+        ],
+        "scale": 800
+    },
     "params": [
         {
-            "name": "zoom_level",
-            "value": 800,
-            "bind": {
-                "input": "range",
-                "min": 400,
-                "max": 2500,
-                "step": 50,
-                "name": "Zoom: "
-            }
-        },
-        {
-            "name": "center_to",
-            "value": [
-                133,
-                -27
-            ],
-            "bind": {
-                "input": "select",
-                "options": [
-                    [
-                        133,
-                        -27
-                    ],
-                    [
-                        151,
-                        -33
-                    ],
-                    [
-                        144,
-                        -37
-                    ],
-                    [
-                        115,
-                        -31
-                    ],
-                    [
-                        153,
-                        -27
-                    ],
-                    [
-                        147,
-                        -42
-                    ],
-                    [
-                        138,
-                        -34
-                    ],
-                    [
-                        130,
-                        -19
-                    ]
-                ],
-                "labels": [
-                    "All Australia",
-                    "Sydney / NSW",
-                    "Melbourne / VIC",
-                    "Perth / WA",
-                    "Brisbane / QLD",
-                    "Hobart / TAS",
-                    "Adelaide / SA",
-                    "Darwin / NT"
-                ],
-                "name": "Map Centre: "
+            "name": "state_click",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "properties.STATE_NAME"
+                ]
             }
         }
     ],
-    "projection": {
-        "type": "mercator",
-        "center": {
-            "expr": "center_to"
-        },
-        "scale": {
-            "expr": "zoom_level"
-        }
-    },
     "layer": [
         {
             "data": {
@@ -107,7 +49,8 @@
             "mark": {
                 "type": "geoshape",
                 "stroke": "#ffffff",
-                "strokeWidth": 1
+                "strokeWidth": 1,
+                "cursor": "pointer"
             },
             "encoding": {
                 "color": {
@@ -117,6 +60,13 @@
                         "scheme": "greens"
                     },
                     "title": "% Land Protected"
+                },
+                "strokeWidth": {
+                    "condition": {
+                        "param": "state_click",
+                        "value": 3
+                    },
+                    "value": 1
                 },
                 "tooltip": [
                     {
@@ -143,66 +93,58 @@
             "data": {
                 "url": "data/state_centroids.csv"
             },
-            "transform": [
-                {
-                    "calculate": "datum.state",
-                    "as": "state_label"
+            "mark": {
+                "type": "text",
+                "fontSize": 12,
+                "fontWeight": "bold",
+                "dy": -8
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
                 },
-                {
-                    "calculate": "datum.percent_protected + '%'",
-                    "as": "pct_label"
-                }
-            ],
-            "layer": [
-                {
-                    "mark": {
-                        "type": "text",
-                        "fontSize": 13,
-                        "fontWeight": "bold",
-                        "dy": -8
-                    },
-                    "encoding": {
-                        "longitude": {
-                            "field": "longitude",
-                            "type": "quantitative"
-                        },
-                        "latitude": {
-                            "field": "latitude",
-                            "type": "quantitative"
-                        },
-                        "text": {
-                            "field": "state_label"
-                        },
-                        "color": {
-                            "value": "#1a1208"
-                        }
-                    }
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
                 },
-                {
-                    "mark": {
-                        "type": "text",
-                        "fontSize": 10,
-                        "dy": 8,
-                        "fontStyle": "italic"
-                    },
-                    "encoding": {
-                        "longitude": {
-                            "field": "longitude",
-                            "type": "quantitative"
-                        },
-                        "latitude": {
-                            "field": "latitude",
-                            "type": "quantitative"
-                        },
-                        "text": {
-                            "field": "pct_label"
-                        },
-                        "color": {
-                            "value": "#3d3020"
-                        }
-                    }
+                "text": {
+                    "field": "state",
+                    "type": "nominal"
+                },
+                "color": {
+                    "value": "#1a1208"
                 }
-            ]
+            }
+        },
+        {
+            "data": {
+                "url": "data/state_centroids.csv"
+            },
+            "mark": {
+                "type": "text",
+                "fontSize": 10,
+                "dy": 8,
+                "fontStyle": "italic"
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
+                },
+                "text": {
+                    "field": "percent_protected",
+                    "type": "quantitative",
+                    "format": ".1f"
+                },
+                "color": {
+                    "value": "#3d3020"
+                }
+            }
         }
     ],
     "config": {

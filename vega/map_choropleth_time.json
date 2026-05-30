@@ -1,11 +1,13 @@
 {
-    "title": "Growth of Protected Areas by State (2000-2020)",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Growth of Protected Areas by State (2000–2020)",
     "width": 700,
     "height": 480,
+    "background": "#ede3cc",
     "params": [
         {
             "name": "year_selection",
-            "value": 2020,
+            "value": 2000,
             "bind": {
                 "input": "range",
                 "min": 2000,
@@ -13,72 +15,15 @@
                 "step": 5,
                 "name": "Year: "
             }
-        },
-        {
-            "name": "zoom_level",
-            "value": 800,
-            "bind": {
-                "input": "range",
-                "min": 400,
-                "max": 2500,
-                "step": 50,
-                "name": "Zoom: "
-            }
-        },
-        {
-            "name": "center_to",
-            "value": [
-                133,
-                -27
-            ],
-            "bind": {
-                "input": "select",
-                "options": [
-                    [
-                        133,
-                        -27
-                    ],
-                    [
-                        151,
-                        -33
-                    ],
-                    [
-                        144,
-                        -37
-                    ],
-                    [
-                        115,
-                        -31
-                    ],
-                    [
-                        153,
-                        -27
-                    ],
-                    [
-                        147,
-                        -42
-                    ]
-                ],
-                "labels": [
-                    "All Australia",
-                    "Sydney / NSW",
-                    "Melbourne / VIC",
-                    "Perth / WA",
-                    "Brisbane / QLD",
-                    "Hobart / TAS"
-                ],
-                "name": "Map Centre: "
-            }
         }
     ],
     "projection": {
         "type": "mercator",
-        "center": {
-            "expr": "center_to"
-        },
-        "scale": {
-            "expr": "zoom_level"
-        }
+        "center": [
+            133,
+            -27
+        ],
+        "scale": 800
     },
     "layer": [
         {
@@ -91,7 +36,7 @@
             },
             "transform": [
                 {
-                    "calculate": "'No data available for ' + datum.properties.STATE_NAME",
+                    "calculate": "'No data for ' + datum.properties.STATE_NAME",
                     "as": "note"
                 }
             ],
@@ -180,8 +125,14 @@
         }
     ],
     "config": {
+        "background": "#ede3cc",
+        "legend": {
+            "labelColor": "#3d3020",
+            "titleColor": "#3d3020",
+            "fillColor": "#ede3cc"
+        },
         "transition": {
-            "duration": 500,
+            "duration": 600,
             "easing": "cubic-in-out"
         }
     }
