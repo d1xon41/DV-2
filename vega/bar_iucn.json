@@ -32,9 +32,9 @@
     ],
     "params": [
         {
-            "name": "iucn_select",
+            "name": "iucn_category_selector",
             "select": {
-                "type": "point",
+                "type": "single",
                 "fields": [
                     "iucn_category"
                 ]
@@ -81,7 +81,7 @@
                 },
                 "opacity": {
                     "condition": {
-                        "param": "iucn_select",
+                        "param": "iucn_category_selector",
                         "value": 1
                     },
                     "value": 0.25
@@ -130,7 +130,7 @@
                 },
                 "opacity": {
                     "condition": {
-                        "param": "iucn_select",
+                        "param": "iucn_category_selector",
                         "value": 1
                     },
                     "value": 0.2
