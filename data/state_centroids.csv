@@ -1,9 +1,9 @@
-state,state_name,number_of_parks,protected_area_ha,percent_protected,latitude,longitude,latitude_tip,longitude
-ACT,Australian Capital Territory,51,131902,55.93,-35.47,149.01,-35.38,149.01
-NSW,New South Wales,2657,8365056,10.44,-32.16,147.01,-27.64,147.01
-NT,Northern Territory,84,33208738,24.64,-19.49,133.55,-19.35,133.55
-QLD,Queensland,1230,16183153,9.36,-22.57,144.08,-20.48,144.08
-SA,South Australia,2085,29963518,30.44,-30.00,135.75,-26.46,135.75
-TAS,Tasmania,1721,2928055,42.81,-42.04,146.59,-39.11,146.59
-VIC,Victoria,4709,4023548,17.69,-37.02,144.96,-29.02,144.96
-WA,Western Australia,1888,78674219,31.13,-25.04,121.62,-21.83,121.62
+state,state_name,number_of_parks,protected_area_ha,percent_protected,latitude,longitude,lat_tip
+ACT,Australian Capital Territory,51,131902,55.93,-35.47,149.01,-35.38
+NSW,New South Wales,2657,8365056,10.44,-32.16,147.01,-27.64
+NT,Northern Territory,84,33208738,24.64,-19.49,133.55,-19.35
+QLD,Queensland,1230,16183153,9.36,-22.57,144.08,-20.48
+SA,South Australia,2085,29963518,30.44,-30.00,135.75,-26.46
+TAS,Tasmania,1721,2928055,42.81,-42.04,146.59,-39.11
+VIC,Victoria,4709,4023548,17.69,-37.02,144.96,-29.02
+WA,Western Australia,1888,78674219,31.13,-25.04,121.62,-21.83

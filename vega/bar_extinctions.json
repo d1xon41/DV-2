@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 450,
-    "height": 300,
+    "width": 350,
+    "height": 350,
     "background": "#ede3cc",
     "data": {
         "url": "data/extinctions.csv"
@@ -18,57 +18,52 @@
                 "group",
                 "extinctions"
             ]
+        },
+        {
+            "aggregate": [
+                {
+                    "op": "sum",
+                    "field": "extinctions",
+                    "as": "total"
+                }
+            ],
+            "groupby": [
+                "group"
+            ]
         }
     ],
     "params": [
         {
-            "name": "group_select",
+            "name": "extinction_radial_select",
             "select": {
                 "type": "point",
                 "fields": [
                     "group"
                 ]
-            },
-            "bind": "legend"
-        },
-        {
-            "name": "decade_hover",
-            "select": {
-                "type": "point",
-                "nearest": true,
-                "on": "mouseover",
-                "encodings": [
-                    "x"
-                ],
-                "clear": "mouseout"
             }
         }
     ],
     "layer": [
         {
             "mark": {
-                "type": "area",
-                "interpolate": "monotone"
+                "type": "arc",
+                "innerRadius": 20,
+                "stroke": "#ede3cc",
+                "strokeWidth": 2,
+                "cursor": "pointer"
             },
             "encoding": {
-                "x": {
-                    "field": "decade",
-                    "type": "ordinal",
-                    "title": "Decade",
-                    "axis": {
-                        "grid": false,
-                        "labelColor": "#3d3020",
-                        "titleColor": "#3d3020"
-                    }
-                },
-                "y": {
-                    "field": "extinctions",
+                "theta": {
+                    "field": "total",
                     "type": "quantitative",
-                    "stack": "center",
-                    "axis": {
-                        "grid": false,
-                        "labels": false,
-                        "title": null
+                    "stack": true
+                },
+                "radius": {
+                    "field": "total",
+                    "type": "quantitative",
+                    "scale": {
+                        "rangeMin": 60,
+                        "rangeMax": 160
                     }
                 },
                 "color": {
@@ -92,99 +87,26 @@
                 },
                 "opacity": {
                     "condition": {
-                        "param": "group_select",
-                        "value": 0.9
+                        "param": "extinction_radial_select",
+                        "value": 1
                     },
-                    "value": 0.15
+                    "value": 0.3
                 },
                 "tooltip": [
                     {
-                        "field": "decade",
-                        "title": "Decade"
-                    },
-                    {
                         "field": "group",
-                        "title": "Group"
+                        "title": "Animal Group"
                     },
                     {
-                        "field": "extinctions",
-                        "title": "Extinctions"
+                        "field": "total",
+                        "title": "Total Extinctions Since 1800s"
                     }
                 ]
-            }
-        },
-        {
-            "transform": [
-                {
-                    "filter": {
-                        "param": "decade_hover",
-                        "empty": false
-                    }
-                }
-            ],
-            "mark": {
-                "type": "rule",
-                "color": "#3d3020",
-                "strokeWidth": 1.5,
-                "strokeDash": [
-                    4,
-                    2
-                ]
-            },
-            "encoding": {
-                "x": {
-                    "field": "decade",
-                    "type": "ordinal"
-                }
-            }
-        },
-        {
-            "transform": [
-                {
-                    "filter": {
-                        "param": "decade_hover",
-                        "empty": false
-                    }
-                },
-                {
-                    "aggregate": [
-                        {
-                            "op": "sum",
-                            "field": "extinctions",
-                            "as": "total_this_decade"
-                        }
-                    ],
-                    "groupby": [
-                        "decade"
-                    ]
-                }
-            ],
-            "mark": {
-                "type": "text",
-                "dy": -130,
-                "fontSize": 12,
-                "fontWeight": "bold",
-                "color": "#1a1208"
-            },
-            "encoding": {
-                "x": {
-                    "field": "decade",
-                    "type": "ordinal"
-                },
-                "text": {
-                    "field": "total_this_decade",
-                    "type": "quantitative"
-                }
             }
         }
     ],
     "config": {
         "background": "#ede3cc",
-        "axis": {
-            "labelColor": "#3d3020",
-            "titleColor": "#3d3020",
-            "gridColor": "#d4c9a8"
-        },
         "legend": {
             "labelColor": "#3d3020",
             "titleColor": "#3d3020",

@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 320,
-    "height": 320,
+    "width": 300,
+    "height": 300,
     "background": "#ede3cc",
     "data": {
         "url": "data/parks_by_governance.csv"
@@ -26,34 +26,21 @@
     ],
     "transform": [
         {
-            "calculate": "1",
-            "as": "equal_sector"
-        },
-        {
             "calculate": "gov_metric === 'area_ha' ? datum.area_ha : datum.number_of_parks",
-            "as": "selected_value"
+            "as": "metric_value"
         }
     ],
     "mark": {
         "type": "arc",
-        "innerRadius": 25,
+        "innerRadius": 60,
         "stroke": "#ede3cc",
         "strokeWidth": 3,
         "cursor": "pointer"
     },
     "encoding": {
         "theta": {
-            "field": "equal_sector",
-            "type": "quantitative",
-            "stack": true
-        },
-        "radius": {
-            "field": "selected_value",
-            "type": "quantitative",
-            "scale": {
-                "rangeMin": 25,
-                "rangeMax": 145
-            }
+            "field": "metric_value",
+            "type": "quantitative"
         },
         "color": {
             "field": "governance_type",
@@ -86,7 +73,7 @@
             },
             {
                 "field": "number_of_parks",
-                "title": "Number of Areas",
+                "title": "Number of Parks",
                 "format": ","
             },
             {

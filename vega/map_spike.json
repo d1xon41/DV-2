@@ -51,16 +51,12 @@
                 {
                     "calculate": "spike_metric === 'number_of_parks' ? datum.number_of_parks : spike_metric === 'percent_protected' ? datum.percent_protected : datum.protected_area_ha",
                     "as": "spike_value"
-                },
-                {
-                    "calculate": "spike_metric === 'number_of_parks' ? datum.latitude + (datum.number_of_parks / 4709) * 8 : spike_metric === 'percent_protected' ? datum.latitude + (datum.percent_protected / 55.93) * 8 : datum.latitude + (datum.protected_area_ha / 86000000) * 8",
-                    "as": "lat_tip_calc"
                 }
             ],
             "mark": {
                 "type": "rule",
                 "strokeCap": "round",
-                "strokeWidth": 12
+                "strokeWidth": 14
             },
             "encoding": {
                 "longitude": {
@@ -76,7 +72,7 @@
                     "type": "quantitative"
                 },
                 "latitude2": {
-                    "field": "lat_tip_calc",
+                    "field": "lat_tip",
                     "type": "quantitative"
                 },
                 "color": {
@@ -114,16 +110,10 @@
             "data": {
                 "url": "data/state_centroids.csv"
             },
-            "transform": [
-                {
-                    "calculate": "spike_metric === 'number_of_parks' ? datum.latitude + (datum.number_of_parks / 4709) * 8 : spike_metric === 'percent_protected' ? datum.latitude + (datum.percent_protected / 55.93) * 8 : datum.latitude + (datum.protected_area_ha / 86000000) * 8",
-                    "as": "lat_tip_calc"
-                }
-            ],
             "mark": {
                 "type": "text",
-                "dy": -6,
-                "fontSize": 10,
+                "dy": -8,
+                "fontSize": 11,
                 "fontWeight": "bold",
                 "color": "#1a1208"
             },
@@ -133,7 +123,7 @@
                     "type": "quantitative"
                 },
                 "latitude": {
-                    "field": "lat_tip_calc",
+                    "field": "lat_tip",
                     "type": "quantitative"
                 },
                 "text": {

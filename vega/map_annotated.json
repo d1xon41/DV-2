@@ -13,7 +13,7 @@
     },
     "params": [
         {
-            "name": "state_click",
+            "name": "final_map_click",
             "select": {
                 "type": "point",
                 "fields": [
@@ -63,7 +63,7 @@
                 },
                 "strokeWidth": {
                     "condition": {
-                        "param": "state_click",
+                        "param": "final_map_click",
                         "value": 3
                     },
                     "value": 1

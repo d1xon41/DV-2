@@ -22,7 +22,7 @@
     ],
     "params": [
         {
-            "name": "group_select",
+            "name": "extinction_group",
             "select": {
                 "type": "point",
                 "fields": [
@@ -32,11 +32,10 @@
             "bind": "legend"
         },
         {
-            "name": "decade_hover",
+            "name": "decade_cursor",
             "select": {
                 "type": "point",
-                "nearest": true,
-                "on": "mouseover",
+                "on": "mousemove",
                 "encodings": [
                     "x"
                 ],
@@ -92,7 +91,7 @@
                 },
                 "opacity": {
                     "condition": {
-                        "param": "group_select",
+                        "param": "extinction_group",
                         "value": 0.9
                     },
                     "value": 0.15
@@ -117,7 +116,7 @@
             "transform": [
                 {
                     "filter": {
-                        "param": "decade_hover",
+                        "param": "decade_cursor",
                         "empty": false
                     }
                 }
@@ -142,7 +141,7 @@
             "transform": [
                 {
                     "filter": {
-                        "param": "decade_hover",
+                        "param": "decade_cursor",
                         "empty": false
                     }
                 },
@@ -151,7 +150,7 @@
                         {
                             "op": "sum",
                             "field": "extinctions",
-                            "as": "total_this_decade"
+                            "as": "decade_total"
                         }
                     ],
                     "groupby": [
@@ -172,7 +171,7 @@
                     "type": "ordinal"
                 },
                 "text": {
-                    "field": "total_this_decade",
+                    "field": "decade_total",
                     "type": "quantitative"
                 }
             }
