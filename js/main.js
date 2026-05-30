@@ -23,11 +23,13 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-document.querySelectorAll('.chart-card').forEach(card => observer.observe(card));
-document.querySelectorAll('.section-header').forEach(h => observer.observe(h));
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.chart-card').forEach(el => observer.observe(el));
+document.querySelectorAll('.section-header').forEach(el => observer.observe(el));
 
+// Counter animation
 function animateCounter(el, target, suffix = '', decimals = 0) {
   if (!el) return;
   const duration = 1800;
