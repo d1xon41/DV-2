@@ -30,17 +30,6 @@
             "as": "metric_label"
         }
     ],
-    "params": [
-        {
-            "name": "iucn_category_selector",
-            "select": {
-                "type": "single",
-                "fields": [
-                    "iucn_category"
-                ]
-            }
-        }
-    ],
     "layer": [
         {
             "mark": "line",
@@ -80,11 +69,7 @@
                     "value": "#c8b898"
                 },
                 "opacity": {
-                    "condition": {
-                        "param": "iucn_category_selector",
-                        "value": 1
-                    },
-                    "value": 0.25
+                    "value": 0.7
                 }
             }
         },
@@ -129,11 +114,7 @@
                     }
                 },
                 "opacity": {
-                    "condition": {
-                        "param": "iucn_category_selector",
-                        "value": 1
-                    },
-                    "value": 0.2
+                    "value": 0.85
                 },
                 "tooltip": [
                     {

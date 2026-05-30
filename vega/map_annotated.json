@@ -11,17 +11,6 @@
         ],
         "scale": 800
     },
-    "params": [
-        {
-            "name": "state_click_selector",
-            "select": {
-                "type": "single",
-                "fields": [
-                    "properties.STATE_NAME"
-                ]
-            }
-        }
-    ],
     "layer": [
         {
             "data": {
@@ -62,11 +51,7 @@
                     "title": "% Land Protected"
                 },
                 "strokeWidth": {
-                    "condition": {
-                        "param": "state_click_selector",
-                        "value": 3
-                    },
-                    "value": 1
+                    "value": 2
                 },
                 "tooltip": [
                     {
